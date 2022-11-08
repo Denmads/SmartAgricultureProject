@@ -18,8 +18,8 @@ def test():
     return jsonify(dictToReturn)
 
 # curl -X POST -d @Hip-Flask.jpg localhost:5000/processImage 
-@app.route("/processImage", methods=["POST"])
-def processImage():
+@app.route("/predictImage", methods=["POST"])
+def predictImage():
     # predict(request.get_data())
     result = predict(request.get_data())
     return result
