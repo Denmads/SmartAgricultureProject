@@ -21,8 +21,8 @@ def test():
 @app.route("/processImage", methods=["POST"])
 def processImage():
     # predict(request.get_data())
-    results = predict(request.get_data())
-    return results
+    result = predict(request.get_data())
+    return result
 
 if __name__ == '__main__':
     app.run(debug=True)
