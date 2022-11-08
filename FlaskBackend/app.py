@@ -20,6 +20,7 @@ def test():
 # curl -X POST -d @Hip-Flask.jpg localhost:5000/processImage 
 @app.route("/processImage", methods=["POST"])
 def processImage():
+    # predict(request.get_data())
     results = predict(request.get_data())
     return results
 
