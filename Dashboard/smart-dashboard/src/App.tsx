@@ -4,6 +4,7 @@ import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { routes as appRoutes } from "./routes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NavBar from './components/NavigationBar'
 
 function App() {
   const theme = createTheme({
@@ -21,6 +22,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box height="100vh" display="flex" flexDirection="column" >
+        
         <Router>
           <Routes>
             {
@@ -28,7 +30,7 @@ function App() {
                 <Route 
                   key={route.key}
                   path={route.path}
-                  element={<route.component />}
+                  element={<><NavBar /><route.component /></>}
                 />
               ))
             }
