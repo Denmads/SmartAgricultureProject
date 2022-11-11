@@ -3,8 +3,6 @@ import tensorflow as tf
 from ModelHandler import predict
 import base64
 
-
-
 app = Flask(__name__)
 
 @app.route("/")
