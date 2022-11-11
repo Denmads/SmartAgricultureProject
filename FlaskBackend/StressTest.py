@@ -2,7 +2,6 @@ import time
 import requests
 import datetime
 import concurrent.futures
-from PIL import Image
 import base64
 
 HOST = 'http://localhost:5000'
