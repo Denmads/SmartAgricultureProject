@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import tensorflow as tf
 from ModelHandler import predict
+import base64
 
 
 
@@ -18,10 +19,12 @@ def test():
     return jsonify(dictToReturn)
 
 # curl -X POST -d @Hip-Flask.jpg localhost:5000/processImage 
+# Take base64encoded data
 @app.route("/predictImage", methods=["POST"])
 def predictImage():
     # predict(request.get_data())
-    result = predict(request.get_data())
+    img_data = base64.decodebytes(request.get_data())
+    result = predict(img_data)
     return result
 
 if __name__ == '__main__':
