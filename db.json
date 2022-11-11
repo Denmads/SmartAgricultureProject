@@ -1,0 +1,17 @@
+{
+  "droneinfo": [
+    {'id': '3a8020e2-3c1e-40b5-be19-31dcade085ad', 'field': -1, 'x': -1, 'y': -1, 'status': 'idle'},
+    {'id': '73b9d548-e0f3-48f4-883d-7363c6e64e63', 'field': -1, 'x': -1, 'y': -1, 'status': 'idle'},
+    {'id': 'aa8dbc21-78e1-4e8f-8c39-46bb259a5e12', 'field': 1, 'x': 50, 'y': 25, 'status': 'harvesting'},
+    {'id': '411695bb-b5d2-4a1e-86cf-c1f50b9b67f0', 'field': 1, 'x': 32, 'y': 10, 'status': 'done'},
+    {'id': 'bbb7199b-08f0-41a8-b9ea-2b4dfd359bda', 'field': 1, 'x': 100, 'y': 50, 'status': 'harvesting'},
+    {'id': '2fa1191e-2716-4b92-b0c6-6641ea72cbfa', 'field': 2, 'x': 4, 'y': 2, 'status': 'harvesting'},
+    {'id': '45062ada-2af1-4d93-821f-43916bcbbb0e', 'field': 2, 'x': 45, 'y': 50, 'status': 'done'}
+  ]
+}
+
+
+
+
+
+
