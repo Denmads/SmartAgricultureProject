@@ -9,8 +9,8 @@
     {"id": "45062ada-2af1-4d93-821f-43916bcbbb0e", "field": 2, "x": 45, "y": 50, "status": "done"}
   ],
   "fields": [
-    {"id": 1, "name": "Field 1"},
-    {"id": 2, "name": "Field 2"}
+    {"id": 1, "name": "Field 1", "width": 450, "height": 320},
+    {"id": 2, "name": "Field 2", "width": 450, "height": 450}
   ]
 }
 
