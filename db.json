@@ -7,6 +7,10 @@
     {"id": "bbb7199b-08f0-41a8-b9ea-2b4dfd359bda", "field": 1, "x": 100, "y": 50, "status": "harvesting"},
     {"id": "2fa1191e-2716-4b92-b0c6-6641ea72cbfa", "field": 2, "x": 4, "y": 2, "status": "harvesting"},
     {"id": "45062ada-2af1-4d93-821f-43916bcbbb0e", "field": 2, "x": 45, "y": 50, "status": "done"}
+  ],
+  "fields": [
+    {"id": 1, "name": "Field 1"},
+    {"id": 2, "name": "Field 2"}
   ]
 }
 
