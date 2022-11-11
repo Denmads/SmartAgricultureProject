@@ -33,6 +33,7 @@ for dir in dirs.keys():
 print(predictions)
 print(f'Right: {right}')
 print(f'Wrong: {wrong}')
+print(f'Total: {right/(right+wrong)}')
 
 
 # with open('TestImages/FreshBananas/b0.jpg', "rb") as img_file:

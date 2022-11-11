@@ -11,11 +11,10 @@ app = Flask(__name__)
 def version():
     return f"<p>tfVersion: {tf.version.VERSION}</p>"
 
-# curl -X POST -d @Hip-Flask.jpg localhost:5000/processImage 
-# Take base64encoded data
+# curl -X POST -d @{ImageName}.jpg localhost:5000/processImage 
+# Takes base64encoded data
 @app.route("/predictImage", methods=["POST"])
 def predictImage():
-    # predict(request.get_data())
     img_data = base64.decodebytes(request.get_data())
     result = predict(img_data)
     return result
