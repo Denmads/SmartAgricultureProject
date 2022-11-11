@@ -4,7 +4,7 @@ import datetime
 import concurrent.futures
 import base64
 
-HOST = 'http://localhost:5000'
+HOST = 'http://localhost:8080'
 API_PATH = '/predictImage'
 ENDPOINT = HOST + API_PATH
 MAX_THREADS = 30
