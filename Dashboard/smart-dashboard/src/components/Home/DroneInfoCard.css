@@ -1,0 +1,57 @@
+.drone-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.drone-info-header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.drone-info-id {
+    display: flex;
+    gap: 1rem;
+}
+
+.drone-info-job {
+    margin-top: 1rem;
+}
+
+.drone-info-job-fields {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas: "id id x y";
+    align-content: stretch;
+}
+
+.drone-info-job-field {
+    display: flex;
+    gap: 1rem;
+}
+
+#id {
+    grid-area: id;
+}
+
+#x {
+    grid-area: x;
+}
+
+#y {
+    grid-area: y;
+}
+
+@media only screen and (max-width: 768px) {
+    .drone-info-job-fields {
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas: 
+        "id . ."
+        "x y .";
+    }
+}

@@ -62,7 +62,7 @@ function ResponsiveNavBar () {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: 'block' }}
+            sx={{ flexGrow: 1, display: 'block', color: '#fff' }}
           >
             Smart Dashboard
           </Typography>

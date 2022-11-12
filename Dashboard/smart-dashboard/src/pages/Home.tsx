@@ -1,10 +1,17 @@
 import React, {ReactElement, FC} from "react";
-import {Box, Typography, Grid} from "@mui/material";
+import {Box, Paper} from "@mui/material";
+import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
+import './Home.css';
+import DroneOverview from '../components/Home/DroneOverview'
+import FieldOverview from '../components/Home/FieldOverview'
 
 const Home: FC<any> = (): ReactElement => {
-    const matches = useMediaQuery('(min-width:900px)');
+    //const matches = useMediaQuery('(min-width:900px)');
+
+    const theme = useTheme();
+
+
 
     return (
         <Box sx={{
@@ -12,16 +19,17 @@ const Home: FC<any> = (): ReactElement => {
             backgroundColor: 'whitesmoke',
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            position: 'relative'
         }}>
-            <Grid container spacing={2} direction={matches ? 'row' : 'column-reverse'}>
-                <Grid item xs={12} md={4}>
-                    <Typography>Hello</Typography>
-                </Grid>
-                <Grid item xs={12} md={8}>
-                    <Typography>Other</Typography>
-                </Grid>
-            </Grid>
+            <div className="grid">
+                <Paper id="drone-view" className="grid-item">
+                    <DroneOverview />
+                </Paper>
+                <Paper id="field-view" className="grid-item">
+                    <FieldOverview />
+                </Paper>
+            </div>
         </Box>
     );
 };
