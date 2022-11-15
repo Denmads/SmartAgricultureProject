@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32428.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DroneController", "DroneController\DroneController.csproj", "{966045EA-33DF-4B6D-9361-A54FFF1F2E46}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{2B6443F3-0298-4D54-A41C-6C102686E123}"
+	ProjectSection(ProjectDependencies) = postProject
+		{966045EA-33DF-4B6D-9361-A54FFF1F2E46} = {966045EA-33DF-4B6D-9361-A54FFF1F2E46}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{966045EA-33DF-4B6D-9361-A54FFF1F2E46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{966045EA-33DF-4B6D-9361-A54FFF1F2E46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{966045EA-33DF-4B6D-9361-A54FFF1F2E46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{966045EA-33DF-4B6D-9361-A54FFF1F2E46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B6443F3-0298-4D54-A41C-6C102686E123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B6443F3-0298-4D54-A41C-6C102686E123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B6443F3-0298-4D54-A41C-6C102686E123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B6443F3-0298-4D54-A41C-6C102686E123}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {80591D46-859B-473C-9840-239FC832AE38}
+	EndGlobalSection
+EndGlobal
