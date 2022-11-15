@@ -13,12 +13,12 @@
     {"id": 2, "name": "Field 2", "width": 450, "height": 450}
   ],
   "jobs": [
-    {"id": 1, "field": 1, "drones":[
+    {"id": 1, "field": "Field 1", "drones":[
       {"id": "aa8dbc21-78e1-4e8f-8c39-46bb259a5e12", "status": "harvesting"},
       {"id": "411695bb-b5d2-4a1e-86cf-c1f50b9b67f0", "status": "done"},
       {"id": "bbb7199b-08f0-41a8-b9ea-2b4dfd359bda", "status": "harvesting"}
     ]},
-    {"id": 2, "field": 2, "drones":[
+    {"id": 2, "field": "Field 2", "drones":[
       {"id": "2fa1191e-2716-4b92-b0c6-6641ea72cbfa", "status": "harvesting"},
       {"id": "45062ada-2af1-4d93-821f-43916bcbbb0e", "status": "done"}
     ]}
