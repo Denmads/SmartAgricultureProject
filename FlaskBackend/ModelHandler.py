@@ -4,7 +4,7 @@ from PIL import Image
 import io
 
 model = None
-model_path = 'Models/fruit_neural_network_v3.h5'
+model_path = 'Models/fruit_neural_network_v5.h5'
 labels = ['freshapples', 'freshbanana', 'freshoranges', 'rottenapples', 'rottenbanana', 'rottenoranges']
 
 def __load_model():
