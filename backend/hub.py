@@ -39,7 +39,11 @@ class Hub:
                 list.append(field.to_json())
         return list
 
-    def genData(self):
+    def getName(self):
+        return self.name
+
+    def getHub(self):
+        #db.getHub()
         hub = Hub()
         hub.newField(Field(10,5,"first",1))
         hub.newField(Field(20,10,"sec",2))
@@ -48,13 +52,13 @@ class Hub:
         hub.newDrone(Drone(hub.fields[1],2))
         return hub
 
-    def getName(self):
-        return self.name
+    def updatePos(self, DroneId, x, y):
+        db.updatePos(DroneId, x, y)
+
 
 if __name__ == "__main__":
-    hub = Hub.genData(Hub())
+    hub = Hub.getHub(Hub())
     
-
     print(hub.getAllDrones())
 
     for field in hub.fields:

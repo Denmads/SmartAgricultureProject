@@ -43,10 +43,10 @@ info got from frontend
 
 
 Drone
-- id
-- position 
-- status (harvest, move, done, dead, (dropoff, charging (if time)))
-- camera feed
+- id --updates  --> confirm 
+- position (x,y) --updates --> confirm
+- status (harvest, move, done, dead, idle, (dropoff, charging (if time))) --updates --> send new action on done
+- camera feed --updates --> send to predict --> send new action. 
 - current field
 
 Field
@@ -84,3 +84,7 @@ endpoints:
 /getDronePosisions(drone id) -> list of drones info with pos 
 
 /getAllFields -> returns list of fields 
+
+/getAllJobs --> returns a list of all jobs
+https://github.com/Denmads/SmartAgricultureProject/blob/main/db.json
+

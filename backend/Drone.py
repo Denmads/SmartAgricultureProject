@@ -1,4 +1,5 @@
 from Field import Field
+from Api import whatIsThis
 
 class Drone:
 
@@ -30,3 +31,19 @@ class Drone:
 
     def to_json(self):
         return {"id":f"self.id", "field":self.field.id, "x":self.x, "y":self.y, "status":self.status}
+
+    def predictImage(self, image):
+        return whatIsThis(image)
+        
+    def updateStatus(self, status):
+        #send data to database
+        self.status = status
+        db.updateDrone(self.id, status)
+
+    def updatePos(self, x, y):
+        self.x = x
+        self.y = y
+        db.updatePos(self.id, x, y)
+
+    def register(self):
+        db.registerDrone(id, x, y, status, field)

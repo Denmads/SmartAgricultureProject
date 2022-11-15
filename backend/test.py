@@ -1,11 +1,8 @@
 from hub import Hub
+from db import loadHub
 
 if __name__ == "__main__":
-    hub = Hub(name="test")
-    
-    print(hub.getName())
-
-    print(hub.getAllDrones())
+    hub = loadHub()
 
     for field in hub.fields:
         print(field.to_json())
