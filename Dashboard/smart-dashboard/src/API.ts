@@ -1,5 +1,4 @@
 import axios from 'axios';
-import DroneInfo from './models/DroneInfoModel';
 
 async function fetchAllDroneInfo() {
     const {data} = await axios.get(process.env.REACT_APP_API_URL_BASE + "/droneinfo");
@@ -11,15 +10,9 @@ async function fetchAllFieldInfo() {
     return data
 }
 
-async function fetchDroneInfo(ids: number[]) {
-    const droneInfo: DroneInfo[] = [];
-
-    for (let id in ids) {
-        const {data} = await axios.get(process.env.REACT_APP_API_URL_BASE + `/droneinfo/${id}`);
-        droneInfo.push(data);
-    }
-
-    return droneInfo;
+async function fetchAllJobInfo() {
+    const {data} = await axios.get(process.env.REACT_APP_API_URL_BASE + "/jobs");
+    return data
 }
 
-export {fetchAllDroneInfo, fetchAllFieldInfo, fetchDroneInfo}
+export {fetchAllDroneInfo, fetchAllFieldInfo, fetchAllJobInfo}

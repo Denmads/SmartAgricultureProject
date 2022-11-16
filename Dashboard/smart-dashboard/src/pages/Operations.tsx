@@ -1,18 +1,34 @@
-import React, {ReactElement, FC} from "react";
-import {Box, Typography} from "@mui/material";
+import React, {ReactElement, FC, useState} from "react";
+import {Box, Tab} from "@mui/material";
+import {TabContext, TabList, TabPanel} from '@mui/lab';
+import JobsTab from '../components/Operations/Jobs/JobsTab'
 
-const About: FC<any> = (): ReactElement => {
+const Operations: FC<any> = (): ReactElement => {
+    const [tabValue, setTabValue] = useState('1');
+
+    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+        setTabValue(newValue);
+    };
+
     return (
         <Box sx={{
             flexGrow: 1,
             backgroundColor: 'whitesmoke',
             display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
+            flexDirection: 'column'
         }}>
-            <Typography variant="h3">Operations</Typography>
+            <TabContext value={tabValue}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <TabList textColor="secondary" indicatorColor="secondary" onChange={handleChange} >
+                        <Tab label="Jobs" value="1" />
+                        <Tab label="Fields" value="2" />
+                    </TabList>
+                </Box>
+                <TabPanel value="1" sx={{height: '100%', padding: '0'}}><JobsTab /></TabPanel>
+                <TabPanel value="2" sx={{height: '100%', padding: '0'}}>Fields</TabPanel>
+            </TabContext>
         </Box>
     );
 };
 
-export default About;
+export default Operations;

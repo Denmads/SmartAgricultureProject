@@ -27,9 +27,10 @@
     gap: 1rem;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 900px) {
     .grid {
         grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1fr 1fr;
         grid-template-areas:    
             "fv fv fv"
             "dv dv dv";

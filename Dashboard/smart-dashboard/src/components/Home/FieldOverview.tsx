@@ -1,4 +1,4 @@
-import React, {ReactElement, FC, useState} from "react";
+import React, {ReactElement, FC, useState, useEffect} from "react";
 import {Typography, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent} from "@mui/material";
 import FieldInfo from "../../models/FieldInfoModel";
 import {useQuery} from 'react-query';
@@ -9,19 +9,23 @@ import DroneInfo from "../../models/DroneInfoModel";
 
 const FieldOverview: FC<any> = (): ReactElement => {
 
-    const matches = useMediaQuery('(max-width:768px)');
+    const matches = useMediaQuery('(max-width:900px)');
     const mWidth = matches ? "100%" : "33%";
 
-    const {isLoading: isLoadingField, isError: isErrorField, error: errorField, data: fieldData} = useQuery('fieldInfo', fetchAllFieldInfo, {onSuccess: (data: FieldInfo[]) => {
-                                                                                                                                                        setFields(data)
-                                                                                                                                                        setField(data[0])
-                                                                                                                                                    }})
-    const {isLoading: isLoadingDrone, isError: isErrorDrone, error: errorDrone, data: droneData} = useQuery('droneInfo', fetchAllDroneInfo, {onSuccess: (data: DroneInfo[]) => {
-                                                                                                                                                setFields(fields)
-                                                                                                                                            }})
+    const {isLoading: isLoadingField, isError: isErrorField, error: errorField, data: fieldData} = useQuery('fieldInfo', fetchAllFieldInfo)
+    const {isLoading: isLoadingDrone, isError: isErrorDrone, error: errorDrone, data: droneData} = useQuery('droneInfo', fetchAllDroneInfo, {
+                                                                                                                                            refetchInterval: 2000
+                                                                                                                                        })
 
     const [fields, setFields] = useState<FieldInfo[]>([])
     const [field, setField] = useState<FieldInfo | undefined>(undefined)                                                                                                                             
+    
+    useEffect(() => {
+        if (!fieldData) return;
+
+        setFields(fieldData)
+        setField(fieldData[0])
+    }, [fieldData])
 
     return (
         <>

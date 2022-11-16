@@ -12,8 +12,8 @@ import FieldInfo from '../../models/FieldInfoModel';
 
 const DroneOverview: FC<any> = (): ReactElement => {
 
-    const {isLoading, isError: isErrorDrone, error: errorDrone, data: droneData} = useQuery('droneInfo', fetchAllDroneInfo, {onSuccess: (data: DroneInfo[]) => setDisplayDrones(data)})
-    const {isError: isErrorField, error: errorField, data: fieldData} = useQuery('fieldInfo', fetchAllFieldInfo, {onSuccess: (data: FieldInfo[]) => setFields(data)})
+    const {isLoading, isError: isErrorDrone, error: errorDrone, data: droneData} = useQuery('droneInfo', fetchAllDroneInfo, {onSuccess: (data: DroneInfo[]) => setDisplayDrones(data), refetchInterval: 2000})
+    const {isError: isErrorField, error: errorField, data: fieldData} = useQuery('fieldInfo', fetchAllFieldInfo, {onSuccess: (data: FieldInfo[]) => setFields(data), refetchInterval: 2000})
 
     const [displayDrones, setDisplayDrones] = useState<DroneInfo[]>([]);
     const [fields, setFields] = useState<FieldInfo[]>([]);
@@ -112,7 +112,7 @@ const DroneOverview: FC<any> = (): ReactElement => {
             {!combinedError && <Scrollbar disableTracksWidthCompensation thumbYProps={{style:{backgroundColor: theme.palette.secondary.main}}}>
                 <div className="drone-list" >
                     {isLoading && numSkeletons.map(val => <Skeleton key={val} height={120} variant="rectangular"></Skeleton>)}
-                    {!isLoading && displayDrones.map((info: DroneInfo) => <DroneInfoCard key={info.id} id={info.id} fieldName={info.fieldName} x={info.x} y={info.y} status={info.status}></DroneInfoCard>)}
+                    {!isLoading && displayDrones.map((info: DroneInfo) => <DroneInfoCard key={info.id} id={info.id} field={info.field} fieldName={info.fieldName} x={info.x} y={info.y} status={info.status}></DroneInfoCard>)}
                 </div>
             </Scrollbar>}
         </>

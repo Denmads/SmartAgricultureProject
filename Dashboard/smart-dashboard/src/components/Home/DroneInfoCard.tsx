@@ -10,7 +10,7 @@ const chipColors: { [key: string]: "info" | "warning" | "success"} = {
     "done": "success"
 }
 
-const DroneInfoCard: FC<Omit<DroneInfo, "field">> = (props: Omit<DroneInfo, "field">): ReactElement => {
+const DroneInfoCard: FC<DroneInfo> = (props: DroneInfo): ReactElement => {
 
     const statusDisplay = props.status[0].toUpperCase() + props.status.substring(1);
 
@@ -25,7 +25,7 @@ const DroneInfoCard: FC<Omit<DroneInfo, "field">> = (props: Omit<DroneInfo, "fie
                     <div className="drone-info-id">
                         <Typography color="grey">ID:</Typography><Typography variant="subtitle1">{props.id}</Typography>
                     </div>
-                    {props.fieldName !== "" && <div className="drone-info-job">
+                    {props.field !== -1 && <div className="drone-info-job">
                         <Divider>Job Info</Divider>
                         <div className="drone-info-job-fields">
                             <div className="drone-info-job-field" id="id">
