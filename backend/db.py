@@ -84,7 +84,7 @@ def updatePos(DroneId, x, y):
                                             password='password')
         if connection.is_connected():
             cursor = connection.cursor()
-            cursor.execute(f("UPDATE drone SET x ={x}, y = {y} WHERE Droneid = {DroneId};"))
+            cursor.execute(f"UPDATE drone SET x ={x}, y = {y} WHERE Droneid = {DroneId};")
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -101,7 +101,7 @@ def updateStatus(status, droneId):
                                             password='password')
         if connection.is_connected():
             cursor = connection.cursor()
-            cursor.execute(f("UPDATE drone SET DroneStatus = {status} WHERE Droneid = {droneId};"))
+            cursor.execute(f"UPDATE drone SET DroneStatus = {status} WHERE Droneid = {droneId};")
 
     except Error as e:
         print("Error while connecting to MySQL", e)
