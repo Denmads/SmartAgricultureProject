@@ -63,4 +63,7 @@ class Hub:
         for drone in self.drones:
             if drone.id == DroneId:
                 drone.status = status
+            
         db.updateStatus(status, droneId)
+        
+            

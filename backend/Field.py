@@ -12,4 +12,4 @@ class Field:
         return {"id":self.id, "name":f"{self.name}", "hieght":self.hieght, "width":self.width}
 
     def insert_into_db(self):
-        db.save(f("INSERT INTO ff (Width, height, FieldName)VALUES({self.width}, {self.hieght}, {self.name})"))
+        db.save(f"INSERT INTO ff (Width, height, FieldName)VALUES({self.width}, {self.hieght}, {self.name})")

@@ -1,5 +1,6 @@
 from Field import Field
 from Api import whatIsThis
+import db
 
 class Drone:
 
@@ -30,7 +31,7 @@ class Drone:
         return f"drone {self.id} is on {self.field.name}({self.x}, {self.y}) with status {self.status}"
 
     def to_json(self):
-        return {"id":f"self.id", "field":self.field.id, "x":self.x, "y":self.y, "status":self.status}
+        return {"id":self.id, "field":self.field.id, "x":self.x, "y":self.y, "status":self.status}
 
     def predictImage(self, image):
         return whatIsThis(image)
@@ -46,4 +47,4 @@ class Drone:
         db.updatePos(self.id, x, y)
 
     def register(self):
-        db.save(f("INSERT INTO drone (Droneid, x, y, DroneStatus, Fieldid) VALUES({self.id}, {self.x}, {self.y}, {self.status}, {self.fieldId})"))
+        db.save(f"INSERT INTO drone (Droneid, x, y, DroneStatus, Fieldid) VALUES({self.id}, {self.x}, {self.y}, {self.status}, {self.fieldId})")
