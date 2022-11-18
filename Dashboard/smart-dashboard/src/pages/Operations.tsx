@@ -2,6 +2,7 @@ import React, {ReactElement, FC, useState} from "react";
 import {Box, Tab} from "@mui/material";
 import {TabContext, TabList, TabPanel} from '@mui/lab';
 import JobsTab from '../components/Operations/Jobs/JobsTab'
+import FieldsTab from '../components/Operations/Fields/FieldsTab'
 
 const Operations: FC<any> = (): ReactElement => {
     const [tabValue, setTabValue] = useState('1');
@@ -25,7 +26,7 @@ const Operations: FC<any> = (): ReactElement => {
                     </TabList>
                 </Box>
                 <TabPanel value="1" sx={{height: '100%', padding: '0'}}><JobsTab /></TabPanel>
-                <TabPanel value="2" sx={{height: '100%', padding: '0'}}>Fields</TabPanel>
+                <TabPanel value="2" sx={{height: '100%', padding: '0'}}><FieldsTab /></TabPanel>
             </TabContext>
         </Box>
     );
