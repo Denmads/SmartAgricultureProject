@@ -1,5 +1,6 @@
 from Field import Field
 from Drone import Drone
+import json
 
 class Hub:
     def __init__(self, name="hub"):
@@ -66,4 +67,11 @@ class Hub:
             
         db.updateStatus(status, droneId)
         
+    def getjobs(self):
+        joblist = []
+        for field in self.fields:
+            f = field.to_json_with_drones(self)
+            joblist.append(f)
+        return json.dumps(joblist)
+            
             

@@ -10,13 +10,17 @@ hub = Hub().getHub()
 def hello_world():
     return "<p>Hello, World!</p>"
 
-@app.route("/getAllDrones")
+@app.route("/droneinfo")
 def getDrones():
     return f"{hub.getAllDrones()}"
 
-@app.route('/getAllFields')
+@app.route('/fields')
 def getAllFields():
     return f"{hub.getAllField()}"
+
+@app.route('/jobs')
+def getJobs():
+    return f"{hub.getjobs()}"
 
 @app.route("/getDronePosisions", methods=['POST'])
 def getDronePosisions():
