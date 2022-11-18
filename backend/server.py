@@ -10,9 +10,28 @@ hub = Hub().getHub()
 def hello_world():
     return "<p>Hello, World!</p>"
 
-@app.route("/getDrones")
+@app.route("/getAllDrones")
 def getDrones():
     return f"{hub.getAllDrones()}"
+
+@app.route('/getAllFields')
+def getAllFields():
+    return f"{hub.getAllField()}"
+
+@app.route("/getDronePosisions", methods=['POST'])
+def getDronePosisions():
+    ids = request.form.getList('drone_ids', type=string)
+    drones = []
+
+    for drone_id in ids:
+        try:
+            # get from database
+            drone = db.getDrone(drone_id)
+            drones.append(drone)
+        except:
+            continue
+    
+    return drones
 
 @app.route('/getDrones/', methods=['POST'])
 def getSpeceficDrones():
@@ -28,6 +47,15 @@ def getSpeceficDrones():
             continue
     
     return drones
+
+
+
+
+
+
+
+
+
 
 @app.route('/drone/register/drone', methods=['POST'])
 def registerDrone():
