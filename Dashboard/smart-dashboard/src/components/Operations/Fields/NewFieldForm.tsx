@@ -50,6 +50,11 @@ const NewFieldForm: FC<Props> = (props: Props): ReactElement => {
     }
 
     const widthChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (isNaN(Number(event.target.value))) {
+            setWidthError("Width must be a number");
+            return;
+        }
+
         let width: number = event.target.value === "" ? -1 : Math.floor(parseFloat(event.target.value));
 
         if (width <= 0) {
@@ -62,6 +67,11 @@ const NewFieldForm: FC<Props> = (props: Props): ReactElement => {
     }
 
     const heightChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (isNaN(Number(event.target.value))) {
+            setHeightError("Height must be a number");
+            return;
+        }
+        
         let height: number = event.target.value === "" ? -1 : Math.floor(parseFloat(event.target.value));
 
         if (height <= 0) {
@@ -98,9 +108,9 @@ const NewFieldForm: FC<Props> = (props: Props): ReactElement => {
     return (
         <Paper sx={{position: "relative", display: 'flex', flexDirection: 'column', gap: '1rem', padding: '1rem', gridArea: props.areaName}}>
             <Typography variant="h4">New Field</Typography>
-            <TextField label="Name" variant="outlined" onChange={nameChanged} error={nameError !== undefined} helperText={nameError ? nameError : ""}/>
-            <TextField label="Width" variant="outlined" type="number" onChange={widthChanged} error={widthError !== undefined} helperText={widthError ? widthError : ""}/>
-            <TextField label="Height" variant="outlined" type="number" onChange={heightChanged} error={heightError !== undefined} helperText={heightError ? heightError : ""}/>
+            <TextField required label="Name" variant="outlined" onChange={nameChanged} error={nameError !== undefined} helperText={nameError ? nameError : ""}/>
+            <TextField required label="Width" variant="outlined" onChange={widthChanged} error={widthError !== undefined} helperText={widthError ? widthError : ""}/>
+            <TextField required label="Height" variant="outlined" onChange={heightChanged} error={heightError !== undefined} helperText={heightError ? heightError : ""}/>
             <Button variant="contained" sx={matches ? {width: "100%"} : {width: "35%"}} onClick={onClick}>Create Job</Button>
             <Snackbar open={snackOpen} autoHideDuration={6000} onClose={snackClose} anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
                 <Alert onClose={snackClose} severity={snackSeverity} sx={{width: '100%'}}>
