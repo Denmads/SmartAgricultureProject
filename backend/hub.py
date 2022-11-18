@@ -53,16 +53,14 @@ class Hub:
         return hub
 
     def updatePos(self, DroneId, x, y):
+        for drone in self.drones:
+            if drone.id == DroneId:
+                drone.x = x
+                drone.y = y
         db.updatePos(DroneId, x, y)
 
-
-if __name__ == "__main__":
-    hub = Hub.getHub(Hub())
-    
-    print(hub.getAllDrones())
-
-    for field in hub.fields:
-        print(field.to_json())
-    
-    for drone in hub.drones:
-        print(drone.to_json())
+    def updateStatus(self, status, droneId):
+        for drone in self.drones:
+            if drone.id == DroneId:
+                drone.status = status
+        db.updateStatus(status, droneId)

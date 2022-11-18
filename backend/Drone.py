@@ -46,4 +46,4 @@ class Drone:
         db.updatePos(self.id, x, y)
 
     def register(self):
-        db.registerDrone(id, x, y, status, field)
+        db.save(f("INSERT INTO drone (Droneid, x, y, DroneStatus, Fieldid) VALUES({self.id}, {self.x}, {self.y}, {self.status}, {self.fieldId})"))

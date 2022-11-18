@@ -75,3 +75,54 @@ def getAllField():
             connection.close()
 
     return fields
+
+def updatePos(DroneId, x, y):
+    try:
+        connection = mysql.connector.connect(host='localhost',
+                                            database='hub',
+                                            user='root',
+                                            password='password')
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute(f("UPDATE drone SET x ={x}, y = {y} WHERE Droneid = {DroneId};"))
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+def updateStatus(status, droneId):
+    try:
+        connection = mysql.connector.connect(host='localhost',
+                                            database='hub',
+                                            user='root',
+                                            password='password')
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute(f("UPDATE drone SET DroneStatus = {status} WHERE Droneid = {droneId};"))
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+def insert_into_db(quary):
+    try:
+        connection = mysql.connector.connect(host='localhost',
+                                            database='hub',
+                                            user='root',
+                                            password='password')
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute(quary)
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()

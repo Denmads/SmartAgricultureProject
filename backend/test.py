@@ -1,11 +1,11 @@
-from hub import Hub
-from db import loadHub
+
+from parth import Parth
 
 if __name__ == "__main__":
-    hub = loadHub()
+    i = 20
+    j = 30
+    parth = Parth(x=i,y=j,fieldid=2)
 
-    for field in hub.fields:
-        print(field.to_json())
-    
-    for drone in hub.drones:
-        print(drone.to_json())
+    for x in range(0,i+1):
+        for y in range(0,j+1):
+            print(parth.getNextTile())
