@@ -105,8 +105,16 @@ class Hub:
             joblist.append(f)
         return json.dumps(joblist)
             
-    def loadHub():
-        hub = Hub()
-        hub.fields = db.getAllField()
-        hub.drones = db.getAllDrones()
-        return hub
+    def droneUpdate(self, drone_id):
+        for job in jobs:
+            for droneId in job.droneslist:
+                if drone_id == droneId:
+                    
+                    return {"hasjob": "true", "x": x, "y": y}
+        return {"hasjob": "false"}
+
+def loadHub():
+    hub = Hub()
+    hub.fields = db.getAllField()
+    hub.drones = db.getAllDrones()
+    return hub
