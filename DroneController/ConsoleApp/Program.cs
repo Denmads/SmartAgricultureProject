@@ -1,64 +1,33 @@
-﻿var droneHubBaseUrl = "https://localhost:5000/";
-string currentJob = "";
+﻿using ConsoleApp.Models;
+using Newtonsoft.Json;
+
+Job currentJob = new() { hasJob = false, X = 0, Y = 0 };
 
 // Generate guid
 Guid guid = Guid.NewGuid();
 Console.WriteLine($"Drone booting up: {guid}");
 
+Position pos = new Position() { X = 0, Y = 0 };
+var droneHub = new ConsoleApp.DroneHub();
+
 // Send ID to DroneHub
-Post("drone/register/drone", guid.ToString());
+droneHub.Post("drone/register/drone", guid.ToString());
 
 while (true)
 {
-    if (currentJob == "")
+    if (currentJob.hasJob)
     {
-        currentJob = Get("job");
-        Post("drone/updatestatus", "Starting");
+        droneHub.Post("drone/updatestatus", "In Progress");
+        droneHub.Post("drone/updatepos", JsonConvert.SerializeObject(pos, Formatting.Indented));
+        droneHub.Post("drone/camera", GenerateImageString());
     }
     else
     {
-        Post("drone/updatestatus", "In Progress");
-        Post("drone/updatepos", "{\"x\":2, \"y\":5)");
-        Post("drone/camera", GenerateImageString());
+        currentJob = (Job)JsonConvert.DeserializeObject(droneHub.Get("job"));
+        droneHub.Post("drone/updatestatus", "Starting");
     }
 
     Thread.Sleep(2000);
-}
-
-bool Post(string parameters, string payload)
-{
-    try
-    {
-        using HttpClient client = new();
-        client.BaseAddress = new Uri(droneHubBaseUrl);
-        HttpResponseMessage response = client.PostAsync(parameters, new StringContent(payload)).Result;
-        return response.IsSuccessStatusCode;
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Failed to reach {droneHubBaseUrl}: {ex.Message}");
-        return false;
-    }
-}
-
-string Get(string parameters)
-{
-    try
-    {
-        using HttpClient client = new();
-        client.BaseAddress = new Uri(droneHubBaseUrl);
-        HttpResponseMessage response = client.GetAsync(parameters).Result;
-        if (response.IsSuccessStatusCode)
-        {
-            return response.Content.ReadAsStringAsync().Result;
-        }
-        return "";
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Failed to reach {droneHubBaseUrl}: {ex.Message}");
-        return "";
-    }
 }
 
 string GenerateImageString()
