@@ -12,8 +12,8 @@ import FieldInfo from '../../models/FieldInfoModel';
 
 const DroneOverview: FC<any> = (): ReactElement => {
 
-    const {isLoading, isError: isErrorDrone, error: errorDrone, data: droneData} = useQuery('droneInfo', fetchAllDroneInfo, {onSuccess: (data: DroneInfo[]) => setDisplayDrones(data), refetchInterval: 2000})
-    const {isError: isErrorField, error: errorField, data: fieldData} = useQuery('fieldInfo', fetchAllFieldInfo, {onSuccess: (data: FieldInfo[]) => setFields(data), refetchInterval: 2000})
+    const {isLoading, isError: isErrorDrone, error: errorDrone, data: droneData} = useQuery('droneInfo', fetchAllDroneInfo, {refetchInterval: 2000})
+    const {isError: isErrorField, error: errorField, data: fieldData} = useQuery('fieldInfo', fetchAllFieldInfo, {refetchInterval: 2000})
 
     const [displayDrones, setDisplayDrones] = useState<DroneInfo[]>([]);
     const [fields, setFields] = useState<FieldInfo[]>([]);
@@ -40,16 +40,24 @@ const DroneOverview: FC<any> = (): ReactElement => {
     const statusOptions = ["idle", "harvesting", "done"];
 
     useEffect(() => {
+        if (droneData) {
+            setDisplayDrones(droneData);
+        }
+
+        if (fieldData) {
+            setFields(fieldData);
+        }
+
         if (!droneData|| fields.length === 0) return;
 
         const allStatuses = statusFilter.length === 0;
 
         let filtered = droneData;
         if (onJobFilter)
-            filtered = filtered.filter(d => d.field !== -1);
+            filtered = filtered.filter((d: DroneInfo) => d.field !== -1);
 
         if (!allStatuses)
-            filtered = filtered.filter(d => statusFilter.includes(d.status))
+            filtered = filtered.filter((d: DroneInfo) => statusFilter.includes(d.status))
         setDisplayDrones(filtered)
     }, [onJobFilter, statusFilter, droneData, fieldData])
 

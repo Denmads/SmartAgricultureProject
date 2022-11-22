@@ -2,9 +2,12 @@ from flask import Flask
 from hub import Hub
 import requests
 import db
+from flask_cors import CORS
 
 app = Flask(__name__)
-hub = Hub().getHub()
+CORS(app)
+hub = Hub().loadHub()
+
 
 
 @app.route("/")
@@ -113,4 +116,4 @@ def pos():
 
 
 
-app.run(port=3000)
+app.run(host="0.0.0.0", port=3000)
