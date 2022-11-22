@@ -15,8 +15,12 @@ while (true)
         currentJob = Get("job");
         Post("drone/updatestatus", "Starting");
     }
-
-    Post("drone/updatepos", "{\"x\":2, \"y\":5)");
+    else
+    {
+        Post("drone/updatestatus", "In Progress");
+        Post("drone/updatepos", "{\"x\":2, \"y\":5)");
+        Post("drone/camera", GenerateImageString());
+    }
 
     Thread.Sleep(2000);
 }
@@ -55,4 +59,10 @@ string Get(string parameters)
         Console.WriteLine($"Failed to reach {droneHubBaseUrl}: {ex.Message}");
         return "";
     }
+}
+
+string GenerateImageString()
+{
+    var bytes = File.ReadAllBytes("field.png");
+    return Convert.ToBase64String(bytes);
 }
