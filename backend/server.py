@@ -1,6 +1,7 @@
 from flask import Flask
 from hub import Hub
 import requests
+import db
 
 app = Flask(__name__)
 hub = Hub().getHub()

@@ -1,5 +1,5 @@
 from Field import Field
-from Api import whatIsThis
+from api import whatIsThis
 import db
 
 class Drone:
@@ -11,7 +11,7 @@ class Drone:
     def assignField(self, field=None):
         if field == None:
             self.x = -1
-            self.y = -1
+            self.y = -1 
             self.field = Field(-1, -1, "None", -1)
             self.status = "assign field"
         else:
