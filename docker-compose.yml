@@ -1,0 +1,19 @@
+services:
+  flask-backend:
+    build: ./FlaskBackend
+
+  dronehub:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - flask-backend
+  
+  dashboard:
+    build: ./Dashboard
+    ports:
+      - "80:80"
+    environment:
+      - PORT=80
+    depends_on:
+      - dronehub
