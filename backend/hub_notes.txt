@@ -1,0 +1,90 @@
+Features:
+Keep track of the drones
+Send diskussions to drones
+
+
+
+Drone camera goes to backend
+Backend result “harvest/next” goes to drone
+
+
+Requirements:
+Keep track of fields
+Keep track of drones
+
+
+Communication to other programs
+
+Info send to drone:
+move 
+harvest 
+
+info got from drone:
+- position
+- “camera feed”
+- status (harvest, move, done, dead, (dropoff, charging (if time))) 
+- capacity (if time) 
+- battery (if time)
+
+info send to backend
+- pictures/camera feed
+
+info got from backend
+- harvest / not harvest 
+
+info send to frontend
+- list of field (with size)
+- get field
+ -drone info (position on field) (status)
+
+info got from frontend
+- new field (height, width, name)
+- start new operation (field id/name, list of drone id)
+
+
+Drone
+- id --updates  --> confirm 
+- position (x,y) --updates --> confirm
+- status (harvest, move, done, dead, idle, (dropoff, charging (if time))) --updates --> send new action on done
+- camera feed --updates --> send to predict --> send new action. 
+- current field
+
+Field
+- height 
+- width 
+- name
+- id
+
+Hub
+- list of drones
+- list of fields
+
+Database
+- docker image 
+- drones 
+- fields
+
+
+User Story 
+Send drone to move
+When drone is done
+Take picture
+send picture to hub
+send picture to backend
+back sends back harvest or no harvest
+if harvest then send harvest to drone
+drone returns done 
+when done send move to drone
+else send move to drone
+
+
+endpoints:
+
+/getAllDrones -> returns list of drones (json format)
+/getDronePosisions(drone id) -> list of drones info with pos 
+
+/getAllFields -> returns list of fields 
+
+/getAllJobs --> returns a list of all jobs
+https://github.com/Denmads/SmartAgricultureProject/blob/main/db.json
+

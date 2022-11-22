@@ -1,0 +1,6 @@
+tasks:
+- update status sends the next action
+- test med mads's
+    - fix problems
+- test med bjarne's
+    - fix problems
