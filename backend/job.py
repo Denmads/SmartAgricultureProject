@@ -1,11 +1,14 @@
 import json
 import db
+from parth import Parth
 
 class Job:
-    def __init__(self, drones = [], field = [], id=-1):
+    def __init__(self, drones = [], fieldId = -1, id=-1):
         self.id = id
         self.droneslist = drones
-        self.field = field
+        self.fieldId = fieldId
+        size = self.get_field_size(fieldId= fieldId)
+        self.parth = Parth(x = size[0], y = size[1])
 
     def __str__(self):
         return f"({self.id})"
@@ -21,6 +24,12 @@ class Job:
         j = {"id":self.id, "name":f"{self.name}", "width":self.width, "hieght":self.hieght, "drones": json.dumps(droneslist)}
         return j
 
+    def get_field_size(self, fieldId):
+        fields = db.getAllField()
+        for field in fields:
+            if field.id == fieldId:
+                return [field.x, field.y]
+
     #not made 
     def insert_into_db(self):
-        db.save(f"INSERT INTO ff (Width, height, FieldName)VALUES({self.width}, {self.hieght}, {self.name})")
+        db.save(f"INSERT INTO job (fieldId, droneslist, FieldName)VALUES({self.width}, {self.hieght}, {self.name})")

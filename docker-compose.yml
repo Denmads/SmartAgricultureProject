@@ -2,11 +2,17 @@ services:
   flask-backend:
     build: ./FlaskBackend
 
+  db:
+    build: ./backend/database
+    ports:
+      - "3306:3306"
+
   dronehub:
     build: ./backend
     ports:
       - "3000:3000"
     depends_on:
+      - db
       - flask-backend
   
   dashboard:

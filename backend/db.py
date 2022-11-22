@@ -1,8 +1,8 @@
 import mysql.connector
 from mysql.connector import Error
-
+hostname = 'db'
 try:
-    connection = mysql.connector.connect(host='db',
+    connection = mysql.connector.connect(host=hostname,
                                          database='hub',
                                          user='root',
                                          password='password')
@@ -28,7 +28,7 @@ finally:
 def getAllDrones():
     drones = []
     try:
-        connection = mysql.connector.connect(host='localhost',
+        connection = mysql.connector.connect(host=hostname,
                                             database='hub',
                                             user='root',
                                             password='password')
@@ -51,7 +51,7 @@ def getAllDrones():
 def getAllField():
     fields = []
     try:
-        connection = mysql.connector.connect(host='localhost',
+        connection = mysql.connector.connect(host=hostname,
                                             database='hub',
                                             user='root',
                                             password='password')
@@ -73,7 +73,7 @@ def getAllField():
 
 def updatePos(DroneId, x, y):
     try:
-        connection = mysql.connector.connect(host='localhost',
+        connection = mysql.connector.connect(host=hostname,
                                             database='hub',
                                             user='root',
                                             password='password')
@@ -90,7 +90,7 @@ def updatePos(DroneId, x, y):
 
 def updateStatus(status, droneId):
     try:
-        connection = mysql.connector.connect(host='localhost',
+        connection = mysql.connector.connect(host=hostname,
                                             database='hub',
                                             user='root',
                                             password='password')
@@ -107,7 +107,7 @@ def updateStatus(status, droneId):
 
 def insert_into_db(quary):
     try:
-        connection = mysql.connector.connect(host='localhost',
+        connection = mysql.connector.connect(host=hostname,
                                             database='hub',
                                             user='root',
                                             password='password')
@@ -121,5 +121,3 @@ def insert_into_db(quary):
         if connection.is_connected():
             cursor.close()
             connection.close()
-
-print("works")

@@ -13,5 +13,9 @@ COPY server.py ./work/
 COPY requirements.txt ./work/requirements.txt
 WORKDIR /work/
 RUN pip install -r requirements.txt 
-RUN pip install mysql-connector
+RUN pip install mysql-connector-python
+RUN pip install flask-cors
+
+EXPOSE 3000
+
 CMD ["python", "/work/server.py"]
