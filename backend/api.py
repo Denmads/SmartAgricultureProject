@@ -1,7 +1,6 @@
 import requests
 import base64
 from PIL import Image
-import io
 
 url = 'http://localhost:5000/predictImage'
 dirs = {"FreshBanana":"b", "RottenBanana":"rb", "FreshApples":"a", "RottenApples":"ra", "FreshOranges":"o", "RottenOranges": "ro"}

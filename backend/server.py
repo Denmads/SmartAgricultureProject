@@ -22,6 +22,28 @@ def getAllFields():
 def getJobs():
     return f"{hub.getjobs()}"
 
+@app.route('/job', methods=['POST'])
+def getJob():
+    ids = request.form.getList('job_ids', type=string)
+    return hub.getjob()
+
+@app.route('/field', methods=['POST'])
+def getField():
+    ids = request.form.getList('field_ids', type=string)
+    return hub.getfield(ids)
+
+@app.route('/deletejob', methods=['POST'])
+def deleteJob():
+    ids = request.form.getList('job_ids', type=string)
+    return hub.deletejob(ids)
+
+@app.route('/deletefield', methods=['POST'])
+def deleteField():
+    ids = request.form.getList('field_ids', type=string)
+    return hub.deletejob(ids)
+
+
+
 @app.route("/getDronePosisions", methods=['POST'])
 def getDronePosisions():
     ids = request.form.getList('drone_ids', type=string)

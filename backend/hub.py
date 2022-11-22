@@ -7,12 +7,34 @@ class Hub:
         self.name = name
         self.fields = []
         self.drones = []
+        self.jobs = []
 
     def newField(self, field):
         self.fields.append(field)
 
     def newDrone(self, drone):
         self.drones.append(drone)
+
+    def newJob(self, job):
+        self.jobs.append(job)
+
+    def deleteField(self, fieldId):
+        for field in self.fields:
+            if field.id == fieldId:
+                self.fields.remove(field)
+        return
+
+    def deleteDrone(self, droneId):
+        for drone in self.drones:
+            if drone.id == droneId:
+                self.drones.remove(drone)
+        return
+
+    def deletejob(self, jobId):
+        for job in self.jobs:
+            if job.id == jobId:
+                self.jobs.remove(job)
+        return
 
     def getAllDrones(self):
         list = []
