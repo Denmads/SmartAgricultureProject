@@ -1,0 +1,12 @@
+services:
+  db:
+    build: ./database
+    ports:
+      - "3306:3306"
+
+  server:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"

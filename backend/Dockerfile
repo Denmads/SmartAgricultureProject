@@ -14,4 +14,4 @@ COPY requirements.txt ./work/requirements.txt
 WORKDIR /work/
 RUN pip install -r requirements.txt 
 RUN pip install mysql-connector
-CMD ["python", "/work/db.py"]
+CMD ["python", "/work/server.py"]

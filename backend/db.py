@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 
 try:
-    connection = mysql.connector.connect(host='localhost',
+    connection = mysql.connector.connect(host='db',
                                          database='hub',
                                          user='root',
                                          password='password')
