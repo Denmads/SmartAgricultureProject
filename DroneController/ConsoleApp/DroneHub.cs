@@ -1,8 +1,24 @@
-﻿namespace ConsoleApp
+﻿using ConsoleApp.Models;
+using Newtonsoft.Json;
+
+namespace ConsoleApp
 {
     public class DroneHub
     {
         private readonly string droneHubBaseUrl = "https://localhost:5000/";
+
+        public Job GetNewJob()
+        {
+            var job = Get("job");
+            Random rnd = new();
+
+            if (job == null)
+            {
+                return new Job() { hasJob = true, X = rnd.Next(30), Y = rnd.Next(30) };
+            }
+
+            return (Job)JsonConvert.DeserializeObject(job);
+        }
 
         public bool Post(string parameters, string payload)
         {
@@ -20,7 +36,7 @@
             }
         }
 
-        public string Get(string parameters)
+        public string? Get(string parameters)
         {
             try
             {
@@ -31,12 +47,12 @@
                 {
                     return response.Content.ReadAsStringAsync().Result;
                 }
-                return "";
+                return null;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Failed to reach {droneHubBaseUrl}: {ex.Message}");
-                return "";
+                return null;
             }
         }
     }
