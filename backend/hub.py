@@ -1,5 +1,6 @@
 from Field import Field
 from Drone import Drone
+import db
 import json
 
 class Hub:
@@ -84,7 +85,7 @@ class Hub:
 
     def updateStatus(self, status, droneId):
         for drone in self.drones:
-            if drone.id == DroneId:
+            if drone.id == droneId:
                 drone.status = status
             
         db.updateStatus(status, droneId)
@@ -96,4 +97,8 @@ class Hub:
             joblist.append(f)
         return json.dumps(joblist)
             
-            
+    def loadHub():
+        hub = Hub()
+        hub.fields = db.getAllField()
+        hub.drones = db.getAllDrones()
+        return hub

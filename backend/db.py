@@ -1,6 +1,5 @@
 import mysql.connector
 from mysql.connector import Error
-from hub import Hub
 
 try:
     connection = mysql.connector.connect(host='localhost',
@@ -24,11 +23,7 @@ finally:
         connection.close()
         print("MySQL connection is closed")
 
-def loadHub():
-    hub = Hub()
-    hub.fields = getAllField()
-    hub.drones = getAllDrones()
-    return hub
+
 
 def getAllDrones():
     drones = []
@@ -126,3 +121,5 @@ def insert_into_db(quary):
         if connection.is_connected():
             cursor.close()
             connection.close()
+
+print("works")
