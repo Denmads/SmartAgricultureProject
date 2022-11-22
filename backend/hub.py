@@ -1,5 +1,6 @@
 from Field import Field
 from Drone import Drone
+from job import Job
 import db
 import json
 
@@ -10,13 +11,20 @@ class Hub:
         self.drones = []
         self.jobs = []
 
-    def newField(self, field):
+    def newField(self, height, width, name):
+        field = Field(height=height, width=width, name=name)
         self.fields.append(field)
+        field.insert_into_db()
 
     def newDrone(self, drone):
         self.drones.append(drone)
 
-    def newJob(self, job):
+    def newJob(self, dronesList, fieldId):
+        drones = []
+        for drone in self.drones:
+            if dronesList.__contains__(drone.id): 
+                drones.append(drone)
+        job = Job(fieldId=fieldId, drones=drones)
         self.jobs.append(job)
 
     def deleteField(self, fieldId):

@@ -27,14 +27,17 @@ def getJobs():
     return f"{hub.getjobs()}"
 
 @app.route('/job', methods=['POST'])
-def getJob():
-    ids = request.form.getList('job_ids', type=string)
-    return hub.getjob()
+def createJob():
+    dronesList = request.form.getList('drones') 
+    fieldId = request.form.getList('field', type=int) 
+    return hub.newJob(dronesList=dronesList, fieldId=fieldId)
 
 @app.route('/field', methods=['POST'])
-def getField():
-    ids = request.form.getList('field_ids', type=string)
-    return hub.getfield(ids)
+def createField():
+    name = request.form.getList('name', type=string)
+    width = request.form.getList('width', type=int)
+    height = request.form.getList('height', type=int)
+    hub.newField(height=height, width=width, name=name)
 
 @app.route('/deletejob', methods=['POST'])
 def deleteJob():
@@ -116,4 +119,4 @@ def pos():
 
 
 
-app.run(host="0.0.0.0", port=3000)
+app.run(host='0.0.0.0', port=3000)
