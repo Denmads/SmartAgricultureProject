@@ -2,7 +2,6 @@ from Field import Field
 from Drone import Drone
 from job import Job
 import db
-import json
 
 class Hub:
     def __init__(self, name="hub"):
@@ -107,10 +106,10 @@ class Hub:
         return joblist
             
     def droneUpdate(self, drone_id):
-        for job in jobs:
+        for job in self.jobs:
             for droneId in job.droneslist:
                 if drone_id == droneId:
-
+                    [x,y] = job.parth.getNextTile()
                     return {"hasjob": "true", "x": x, "y": y}
         return {"hasjob": "false"}
 

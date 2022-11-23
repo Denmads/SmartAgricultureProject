@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, request
+from Drone import Drone
 from hub import Hub
 import requests
 import db
@@ -33,26 +34,26 @@ def createJob():
 
 @app.route('/field', methods=['POST'])
 def createField():
-    name = request.form.getList('name', type=string)
+    name = request.form.getList('name', type=str)
     width = request.form.getList('width', type=int)
     height = request.form.getList('height', type=int)
     hub.newField(height=height, width=width, name=name)
 
 @app.route('/deletejob', methods=['POST'])
 def deleteJob():
-    ids = request.form.getList('job_ids', type=string)
+    ids = request.form.getList('job_ids', type=str)
     return hub.deletejob(ids)
 
 @app.route('/deletefield', methods=['POST'])
 def deleteField():
-    ids = request.form.getList('field_ids', type=string)
+    ids = request.form.getList('field_ids', type=str)
     return hub.deletejob(ids)
 
 
 
 @app.route("/getDronePosisions", methods=['POST'])
 def getDronePosisions():
-    ids = request.form.getList('drone_ids', type=string)
+    ids = request.form.getList('drone_ids', type=str)
     drones = []
 
     for drone_id in ids:
@@ -67,7 +68,7 @@ def getDronePosisions():
 
 @app.route('/getDrones/', methods=['POST'])
 def getSpeceficDrones():
-    ids = request.form.getList('drone_ids', type=string)
+    ids = request.form.getList('drone_ids', type=str)
     drones = []
 
     for drone_id in ids:
