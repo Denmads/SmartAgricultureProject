@@ -6,8 +6,9 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-hub = Hub().loadHub()
-
+hub = Hub().getHub()
+#hub.fields = db.getAllField()
+#hub.drones = db.getAllDrones()
 
 
 @app.route("/")
@@ -114,6 +115,11 @@ def pos():
     y = request.form.getList('y', type=int)
     hub.updatePos(drone_id, x, y)
     return "200"
+
+@app.route('/drone/update', methods=['POST'])
+def isThereANewJob():
+    drone_id = request.form.getList('drone_id', type=string)
+    return hub.droneUpdate(drone_id)
 
 
 

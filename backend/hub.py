@@ -77,11 +77,13 @@ class Hub:
     def getHub(self):
         #db.getHub()
         hub = Hub()
-        hub.newField(Field(10,5,"first",1))
-        hub.newField(Field(20,10,"sec",2))
+        f1 = Field(height=10,width=5,name="first",id=1)
+        hub.fields.append(f1)
+        f2 = Field(height=20,width=10,name="sec",id=2)
+        hub.fields.append(f2)
 
-        hub.newDrone(Drone(hub.fields[0],1))
-        hub.newDrone(Drone(hub.fields[1],2))
+        hub.newDrone(Drone(hub.fields[0],"2de9e221-da40-4315-a08a-5f20929ae0d9"))
+        hub.newDrone(Drone(hub.fields[1],"2de9e221-da40-4315-a08a-5f20929ae0d8"))
         return hub
 
     def updatePos(self, DroneId, x, y):
@@ -109,7 +111,7 @@ class Hub:
         for job in jobs:
             for droneId in job.droneslist:
                 if drone_id == droneId:
-                    
+
                     return {"hasjob": "true", "x": x, "y": y}
         return {"hasjob": "false"}
 
