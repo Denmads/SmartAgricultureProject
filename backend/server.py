@@ -50,7 +50,6 @@ def deleteField():
     return hub.deletejob(ids)
 
 
-
 @app.route("/getDronePosisions", methods=['POST'])
 def getDronePosisions():
     ids = request.form.getList('drone_ids', type=str)
@@ -82,34 +81,26 @@ def getSpeceficDrones():
     return drones
 
 
-
-
-
-
-
-
-
-
 @app.route('/drone/register/drone', methods=['POST'])
 def registerDrone():
-    drone_id = request.form.get('drone_id', type=string)
+    drone_id = request.form.get('drone_id', type=str)
     hub.register(drone_id)
     return "200"
 
 @app.route('/drone/updatestatus/')
 def updateStatus():
-    drone_id = request.form.getList('drone_id', type=string)
-    status = request.form.getList('status', type=string)
+    drone_id = request.form.getList('drone_id', type=str)
+    status = request.form.getList('status', type=str)
     hub.updateStatus(drone_id, status)
 
 @app.route('/drone/camera/', methods=['POST'])
 def camera():
-    image = request.form.getList('image', type=string)
+    image = request.form.getList('image', type=str)
     Drone.predictImage(image) 
 
 @app.route('/drone/updatepos/', methods=['POST'])
 def pos():
-    drone_id = request.form.getList('drone_id', type=string)
+    drone_id = request.form.getList('drone_id', type=str)
     x = request.form.getList('x', type=int)
     y = request.form.getList('y', type=int)
     hub.updatePos(drone_id, x, y)
@@ -117,11 +108,7 @@ def pos():
 
 @app.route('/drone/update', methods=['POST'])
 def isThereANewJob():
-    drone_id = request.form.getList('drone_id', type=string)
+    drone_id = request.form.getList('drone_id', type=str)
     return hub.droneUpdate(drone_id)
-
-
-
-
 
 app.run(host='0.0.0.0', port=3000)
