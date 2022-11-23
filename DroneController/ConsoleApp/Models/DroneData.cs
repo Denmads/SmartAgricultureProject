@@ -1,6 +1,6 @@
 ﻿namespace ConsoleApp.Models
 {
-    public class DroneData : Position
+    public class DroneData
     {
         public string drone_id { get; set; } = "";
         public string status { get; set; } = "";

@@ -11,8 +11,11 @@ namespace ConsoleApp
             {
                 drone_id = Guid.NewGuid().ToString(),
                 status = "waiting",
-                X = rnd.Next(30),
-                Y = rnd.Next(30)
+                position = new()
+                {
+                    X = rnd.Next(30),
+                    Y = rnd.Next(30)
+                }
             };
         }
 

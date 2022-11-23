@@ -23,18 +23,22 @@ while (true)
 
         var json = Jsonfy(droneData.position);
         Console.WriteLine(json);
-        droneHub.Post("drone/updatepos", json);
+        droneHub.Post("drone/updatepos/", json);
 
         if (DestinationReached(droneData.position, currentJob))
         {
+            droneData.status = "done";
             Console.WriteLine("Destination reached");
-            currentJob = new();
+
+            droneHub.Post("/drone/updatestatus", Jsonfy(droneData));
+
 
             // Sending image
-            var image = ConsoleApp.GetImage.GetBase64();
-            Console.WriteLine(image.Substring(0, 100));
-            //droneHub.Post("drone/camera", GenerateImageString());
+            var cameraImage = GetImage.GetImageObject();
+            Console.WriteLine(cameraImage.image.Substring(0, 100));
+            droneHub.Post("drone/camera", Jsonfy(cameraImage));
 
+            currentJob = new();
             Thread.Sleep(5000);
         }
 
@@ -48,7 +52,7 @@ while (true)
         ;
     }
 
-    Thread.Sleep(500);
+    Thread.Sleep(100);
 }
 
 void FlyDrone()
