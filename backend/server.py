@@ -86,28 +86,28 @@ def registerDrone():
     hub.register(drone_id)
     return "200"
 
-@app.route('/drone/updatestatus/')
+@app.route('/drone/updatestatus')
 def updateStatus():
-    drone_id = request.form.getList('drone_id', type=str)
-    status = request.form.getList('status', type=str)
+    drone_id = request.form.get('drone_id', type=str)
+    status = request.form.get('status', type=str)
     hub.updateStatus(drone_id, status)
 
-@app.route('/drone/camera/', methods=['POST'])
+@app.route('/drone/camera', methods=['POST'])
 def camera():
-    image = request.form.getList('image', type=str)
+    image = request.form.get('image', type=str)
     Drone.predictImage(image) 
 
-@app.route('/drone/updatepos/', methods=['POST'])
+@app.route('/drone/updatepos', methods=['POST'])
 def pos():
-    drone_id = request.form.getList('drone_id', type=str)
-    x = request.form.getList('x', type=int)
-    y = request.form.getList('y', type=int)
+    drone_id = request.form.get('drone_id', type=str)
+    x = request.form.get('x', type=int)
+    y = request.form.get('y', type=int)
     hub.updatePos(drone_id, x, y)
     return "200"
 
 @app.route('/drone/update', methods=['POST'])
 def isThereANewJob():
-    drone_id = request.form.getList('drone_id', type=str)
+    drone_id = request.form.get('drone_id', type=str)
     return hub.droneUpdate(drone_id)
 
 app.run(host='0.0.0.0', port=3000)
