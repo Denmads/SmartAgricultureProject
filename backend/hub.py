@@ -16,6 +16,10 @@ class Hub:
 
     def newDrone(self, drone):
         self.drones.append(drone)
+    
+    def register(self, id):
+        drone = Drone(None, id)
+        self.newDrone(drone)
 
     def newJob(self, dronesList, fieldId):
         drones = []
