@@ -92,7 +92,7 @@ def getSpeceficDrones():
 
 @app.route('/drone/register/drone', methods=['POST'])
 def registerDrone():
-    drone_id = request.form.getList('drone_id', type=string)
+    drone_id = request.form.get('drone_id', type=string)
     hub.register(drone_id)
     return "200"
 
