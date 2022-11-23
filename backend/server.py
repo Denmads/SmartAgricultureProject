@@ -1,7 +1,6 @@
 from flask import Flask, request
 from Drone import Drone
 from hub import Hub
-import requests
 import db
 from flask_cors import CORS
 
