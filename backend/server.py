@@ -7,8 +7,6 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 hub = Hub().getHub()
-#hub.fields = db.getAllField()
-#hub.drones = db.getAllDrones()
 
 
 @app.route("/")
@@ -17,15 +15,15 @@ def hello_world():
 
 @app.route("/droneinfo")
 def getDrones():
-    return f"{hub.getAllDrones()}"
+    return hub.getAllDrones()
 
 @app.route('/fields')
 def getAllFields():
-    return f"{hub.getAllField()}"
+    return hub.getAllField()
 
 @app.route('/jobs')
 def getJobs():
-    return f"{hub.getjobs()}"
+    return hub.getjobs()
 
 @app.route('/job', methods=['POST'])
 def createJob():

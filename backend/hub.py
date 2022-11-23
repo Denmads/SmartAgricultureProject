@@ -11,10 +11,9 @@ class Hub:
         self.drones = []
         self.jobs = []
 
-    def newField(self, height, width, name):
-        field = Field(height=height, width=width, name=name)
+    def newField(self, field):
         self.fields.append(field)
-        field.insert_into_db()
+        #field.insert_into_db()
 
     def newDrone(self, drone):
         self.drones.append(drone)
