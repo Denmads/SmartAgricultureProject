@@ -28,6 +28,9 @@ while (true)
             Console.WriteLine("Destination reached");
             currentJob = new();
 
+            // Sending image
+            var image = ConsoleApp.GetImage.GetBase64();
+            Console.WriteLine(image.Substring(0, 100));
             //droneHub.Post("drone/camera", GenerateImageString());
 
             Thread.Sleep(5000);
@@ -45,12 +48,6 @@ while (true)
     }
 
     Thread.Sleep(500);
-}
-
-string GenerateImageString()
-{
-    var bytes = File.ReadAllBytes("field.png");
-    return Convert.ToBase64String(bytes);
 }
 
 void FlyDrone()
