@@ -18,7 +18,7 @@ class Field:
         for drone in hub.drones:
             droneslist.append(drone.to_json())
             
-        j = {"id":self.id, "name":f"{self.name}", "width":self.width, "height":self.height, "drones": json.dumps(droneslist)}
+        j = {"id":self.id, "name":f"{self.name}", "width":self.width, "height":self.height, "drones": droneslist}
         return j
 
     def insert_into_db(self):
