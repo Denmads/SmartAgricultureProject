@@ -23,7 +23,7 @@ while (true)
 
         var json = Jsonfy(droneData.position);
         Console.WriteLine(json);
-        droneHub.Post("drone/updatepos/", json);
+        droneHub.Post("drone/updatepos", json);
 
         if (DestinationReached(droneData.position, currentJob))
         {
@@ -45,11 +45,9 @@ while (true)
     }
     else
     {
-        currentJob = droneHub.GetNewJob();
-        var jobJson = JsonConvert.SerializeObject(currentJob, Formatting.Indented);
-        Console.WriteLine($"Update status {jobJson}");
-        droneHub.Post("drone/updatestatus", "{\"drone_id\": " + $"\"{droneData.drone_id}\", \"status\": \"working\" }}");
-        ;
+        currentJob = droneHub.GetNewJob(Jsonfy(droneData.drone_id));
+        droneData.status = "working";
+        droneHub.Post("drone/updatestatus", Jsonfy(droneData));
     }
 
     Thread.Sleep(100);

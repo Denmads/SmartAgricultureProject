@@ -7,9 +7,9 @@ namespace ConsoleApp
     {
         private readonly string droneHubBaseUrl = "http://localhost:3000/";
 
-        public Job GetNewJob()
+        public Job GetNewJob(string payload)
         {
-            var job = Get("job");
+            var job = PostWithResult("/drone/update", payload);
 
             if (job == null)
             {
@@ -17,7 +17,23 @@ namespace ConsoleApp
                 return new Job() { hasJob = true, X = rnd.Next(30), Y = rnd.Next(30) };
             }
 
-            return (Job)JsonConvert.DeserializeObject(job);
+            return JsonConvert.DeserializeObject<Job>(job);
+        }
+
+        private string PostWithResult(string parameters, string payload)
+        {
+            try
+            {
+                using HttpClient client = new();
+                client.BaseAddress = new Uri(droneHubBaseUrl);
+                HttpResponseMessage response = client.PostAsync(parameters, new StringContent(payload)).Result;
+                return response.Content.ReadAsStringAsync().Result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to reach {droneHubBaseUrl}: {ex.Message}");
+                return "";
+            }
         }
 
         public bool Post(string parameters, string payload)
