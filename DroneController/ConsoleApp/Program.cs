@@ -11,7 +11,10 @@ Position currentPosition = new() { X = 0, Y = 0 };
 var droneHub = new ConsoleApp.DroneHub();
 
 // Send ID to DroneHub
-//droneHub.Post("drone/register/drone", guid.ToString());
+if (droneHub.Post("drone/register/drone", "{\"drone_id\": " + $"\"{guid}\" }}"))
+{
+    Console.WriteLine($"Drone registered: {guid}");
+}
 
 while (true)
 {
@@ -40,10 +43,9 @@ while (true)
     else
     {
         currentJob = droneHub.GetNewJob();
-        var s = JsonConvert.SerializeObject(currentJob, Formatting.Indented);
-        Console.WriteLine($"Starting flying towards {s}");
-        //droneHub.Post("drone/updatestatus", "In Progress");
-        //droneHub.Post("drone/updatestatus", $"Starting flying towards {s}");
+        var jobJson = JsonConvert.SerializeObject(currentJob, Formatting.Indented);
+        Console.WriteLine($"Update status {jobJson}");
+        droneHub.Post("drone/updatestatus", $"Starting job {jobJson}");
         ;
     }
 

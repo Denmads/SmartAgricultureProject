@@ -5,15 +5,15 @@ namespace ConsoleApp
 {
     public class DroneHub
     {
-        private readonly string droneHubBaseUrl = "https://localhost:5000/";
+        private readonly string droneHubBaseUrl = "http://localhost:3000/";
 
         public Job GetNewJob()
         {
             var job = Get("job");
-            Random rnd = new();
 
             if (job == null)
             {
+                Random rnd = new();
                 return new Job() { hasJob = true, X = rnd.Next(30), Y = rnd.Next(30) };
             }
 
