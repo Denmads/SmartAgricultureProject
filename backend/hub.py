@@ -95,12 +95,12 @@ class Hub:
                 drone.y = y
         db.updatePos(DroneId, x, y)
 
-    def updateStatus(self, status, droneId):
+    def updateStatus(self, droneId, status):
         for drone in self.drones:
             if drone.id == droneId:
                 drone.status = status
             
-        db.updateStatus(status, droneId)
+        db.updateStatus(droneId, status)
         
     def getjobs(self):
         joblist = []

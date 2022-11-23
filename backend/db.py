@@ -88,7 +88,7 @@ def updatePos(DroneId, x, y):
             cursor.close()
             connection.close()
 
-def updateStatus(status, droneId):
+def updateStatus(droneId, status):
     try:
         connection = mysql.connector.connect(host=hostname,
                                             database='hub',

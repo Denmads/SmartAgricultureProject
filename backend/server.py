@@ -86,7 +86,7 @@ def registerDrone():
     hub.register(drone_id)
     return "200"
 
-@app.route('/drone/updatestatus')
+@app.route('/drone/updatestatus', methods=['POST'])
 def updateStatus():
     drone_id = request.form.get('drone_id', type=str)
     status = request.form.get('status', type=str)
