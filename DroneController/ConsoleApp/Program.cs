@@ -1,19 +1,18 @@
-﻿using ConsoleApp.Models;
+﻿using ConsoleApp;
+using ConsoleApp.Models;
 using Newtonsoft.Json;
 
 Job currentJob = new();
 
-// Generate guid
-Guid guid = Guid.NewGuid();
-Console.WriteLine($"Drone booting up: {guid}");
+DroneData droneData = DroneInit.InitilizeDrone();
+Console.WriteLine($"Drone booting up ...");
 
-Position currentPosition = new() { X = 0, Y = 0 };
-var droneHub = new ConsoleApp.DroneHub();
+DroneHub droneHub = new();
 
 // Send ID to DroneHub
-if (droneHub.Post("drone/register/drone", "{\"drone_id\": " + $"\"{guid}\" }}"))
+if (droneHub.Post("drone/register/drone", Jsonfy(droneData.drone_id)))
 {
-    Console.WriteLine($"Drone registered: {guid}");
+    Console.WriteLine($"Drone registered: {droneData.drone_id}");
 }
 
 while (true)
@@ -22,11 +21,11 @@ while (true)
     {
         FlyDrone();
 
-        var json = JsonConvert.SerializeObject(currentPosition, Formatting.Indented);
+        var json = Jsonfy(droneData.position);
         Console.WriteLine(json);
-        //droneHub.Post("drone/updatepos", );
+        droneHub.Post("drone/updatepos", json);
 
-        if (DestinationReached(currentPosition, currentJob))
+        if (DestinationReached(droneData.position, currentJob))
         {
             Console.WriteLine("Destination reached");
             currentJob = new();
@@ -45,7 +44,7 @@ while (true)
         currentJob = droneHub.GetNewJob();
         var jobJson = JsonConvert.SerializeObject(currentJob, Formatting.Indented);
         Console.WriteLine($"Update status {jobJson}");
-        droneHub.Post("drone/updatestatus", $"Starting job {jobJson}");
+        droneHub.Post("drone/updatestatus", "{\"drone_id\": " + $"\"{droneData.drone_id}\", \"status\": \"working\" }}");
         ;
     }
 
@@ -54,19 +53,23 @@ while (true)
 
 void FlyDrone()
 {
-
-    if (currentPosition.X != currentJob.X)
+    if (droneData.position.X != currentJob.X)
     {
-        currentPosition.X = currentJob.X > currentPosition.X ? currentPosition.X + 1 : currentPosition.X - 1;
+        droneData.position.X = currentJob.X > droneData.position.X ? droneData.position.X + 1 : droneData.position.X - 1;
     }
 
-    if (currentPosition.Y != currentJob.Y)
+    if (droneData.position.Y != currentJob.Y)
     {
-        currentPosition.Y = currentJob.Y > currentPosition.Y ? currentPosition.Y + 1 : currentPosition.Y - 1;
+        droneData.position.Y = currentJob.Y > droneData.position.Y ? droneData.position.Y + 1 : droneData.position.Y - 1;
     }
 }
 
 bool DestinationReached(Position pos1, Position pos2)
 {
     return pos1.X.Equals(pos2.X) && pos1.Y.Equals(pos2.Y);
+}
+
+string Jsonfy(object model)
+{
+    return JsonConvert.SerializeObject(model);
 }
