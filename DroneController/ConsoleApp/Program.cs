@@ -28,13 +28,15 @@ while (true)
         if (DestinationReached(droneData.position, currentJob))
         {
             droneData.status = "done";
-            droneHub.Post("drone/updatestatus", Jsonfy(droneData));
-            Console.WriteLine($"drone/updatestatus {droneData.status}");
+            var status = Jsonfy(droneData);
+            droneHub.Post("drone/updatestatus", status);
+            Console.WriteLine($"drone/updatestatus {status}");
 
             // Sending image
             var cameraImage = GetImage.GetImageObject();
             Console.WriteLine($"drone/camera: {cameraImage.image.Substring(0, 100)}");
-            droneHub.Post("drone/camera", Jsonfy(cameraImage));
+            var i = Jsonfy(cameraImage);
+            droneHub.Post("drone/camera", i);
 
             currentJob = new();
             Thread.Sleep(5000);

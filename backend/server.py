@@ -91,11 +91,13 @@ def updateStatus():
     drone_id = request.form.get('drone_id', type=str)
     status = request.form.get('status', type=str)
     hub.updateStatus(drone_id, status)
+    return "200"
 
 @app.route('/drone/camera', methods=['POST'])
 def camera():
     image = request.form.get('image', type=str)
-    Drone.predictImage(image) 
+    Drone.predictImage(image)
+    return "200"
 
 @app.route('/drone/updatepos', methods=['POST'])
 def pos():
