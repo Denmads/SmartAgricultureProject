@@ -11,7 +11,7 @@ class Hub:
         self.jobs = []
 
     def newField(self, height, width, name):
-        field = Field(height=300, width=200, name='test')
+        field = Field(height=height, width=width, name=name)
         i = field.insert_into_db()
         field.id = i
         self.fields.append(field)
