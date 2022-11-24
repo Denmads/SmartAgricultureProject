@@ -10,10 +10,21 @@ Console.WriteLine($"Drone booting up ...");
 DroneHub droneHub = new();
 
 // Send ID to DroneHub
-if (droneHub.Post("drone/register/drone", Jsonfy(droneData.drone_id)))
-{
-    Console.WriteLine($"drone/register/drone {Jsonfy(droneData.drone_id)}");
+while (true) {
+    Console.WriteLine($"Trying to register ({droneData.drone_id})...");
+    bool registered = droneHub.Post("drone/register/drone", Jsonfy(droneData.drone_id))
+    if (registered) {
+        Console.WriteLine($"Drone registered: {droneData.drone_id}");
+        break;
+    }
+
+    Console.WriteLine($"Error while registering, retrying in 5 seconds...");
+    Thread.Sleep(5000);
 }
+
+droneData.status = "waiting";
+droneHub.Post("drone/updatestatus", Jsonfy(droneData));
+Console.WriteLine($"Drone status: {droneData.status}");
 
 while (true)
 {
@@ -22,11 +33,14 @@ while (true)
         FlyDrone();
 
         var json = Jsonfy(droneData.position);
+        Console.WriteLine($"New Position: {json}");
         droneHub.Post("drone/updatepos", json);
         Console.WriteLine($"drone/updatepos {json}");
 
         if (DestinationReached(droneData.position, currentJob))
         {
+            Console.WriteLine("Destination reached");
+
             droneData.status = "done";
             var status = Jsonfy(droneData);
             droneHub.Post("drone/updatestatus", status);
@@ -38,19 +52,20 @@ while (true)
             var i = Jsonfy(cameraImage);
             droneHub.Post("drone/camera", i);
 
-            currentJob = new();
-            Thread.Sleep(5000);
+            currentJob.hasJob = false;
         }
     }
     else
     {
         currentJob = droneHub.GetNewJob(Jsonfy(droneData.drone_id));
-        droneData.status = "working";
-        droneHub.Post("drone/updatestatus", Jsonfy(droneData));
-        Console.WriteLine($"drone/updatestatus {Jsonfy(droneData)}");
+        if (currentJob != null) {
+            droneData.status = "working";
+            droneHub.Post("drone/updatestatus", Jsonfy(droneData));
+            Console.WriteLine($"Drone status: {droneData.status}");
+        }
     }
 
-    Thread.Sleep(100);
+    Thread.Sleep(1000);
 }
 
 void FlyDrone()
