@@ -1,5 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
+from Field import Field
+
 hostname = 'localhost'
 try:
     connection = mysql.connector.connect(host=hostname,
@@ -60,7 +62,7 @@ def getAllField():
             cursor.execute("SELECT * FROM ff;")
             
             for field in cursor:
-                fields.append(field)
+                fields.append(Field(id=field[0], width=field[1], height=field[2], name=field[3]))
 
     except Error as e:
         print("Error while connecting to MySQL", e)
