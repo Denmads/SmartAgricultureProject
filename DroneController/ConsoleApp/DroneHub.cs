@@ -13,8 +13,7 @@ namespace ConsoleApp
 
             if (job == null)
             {
-                Random rnd = new();
-                return new Job() { hasJob = true, X = rnd.Next(30), Y = rnd.Next(30) };
+                return null;
             }
 
             return JsonConvert.DeserializeObject<Job>(job);
