@@ -53,6 +53,8 @@ class DroneController:
                 time_diff_camera = self.last_camera_update - int(time.time_ns() / 1000000)
                 if time_diff_camera >= TIME_BETWEEN_CAMERA_UPDATES:
                     self._send_image()
+
+            time.sleep(100)
                 
                 
     
