@@ -46,7 +46,7 @@ def deleteJob():
 @app.route('/deletefield', methods=['POST'])
 def deleteField():
     ids = request.form.getList('field_ids', type=str)
-    return hub.deletejob(ids)
+    return hub.deleteField(ids)
 
 
 @app.route("/getDronePosisions", methods=['POST'])

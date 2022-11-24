@@ -11,7 +11,7 @@ class Hub:
         self.jobs = []
 
     def newField(self, height, width, name):
-        field = Field(height=height, width=width, name=name)
+        field = Field(height=height, width=width, name=name, db=db)
         i = field.insert_into_db()
         field.id = i
         self.fields.append(field)
@@ -118,6 +118,7 @@ class Hub:
                     [x,y] = job.parth.getNextTile()
                     return {"hasjob": "true", "x": x, "y": y}
         return {"hasjob": "false"}
+        
 
 def loadHub():
     hub = Hub()

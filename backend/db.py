@@ -1,8 +1,10 @@
 import mysql.connector
 from mysql.connector import Error
 from Field import Field
+import sys
 
 hostname = 'localhost'
+db_module = sys.modules[__name__]
 try:
     connection = mysql.connector.connect(host=hostname,
                                          database='hub',
@@ -60,6 +62,7 @@ def getAllField():
         if connection.is_connected():
             cursor = connection.cursor()
             cursor.execute("SELECT * FROM ff;")
+            result = cursor.fetchall
             
             for field in cursor:
                 fields.append(Field(id=field[0], width=field[1], height=field[2], name=field[3]))
@@ -119,7 +122,7 @@ def insert_into_db(quary):
             cursor.execute(quary)
             a = cursor.lastrowid
         
-        connection.commit()
+            connection.commit()
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -128,3 +131,22 @@ def insert_into_db(quary):
             cursor.close()
             connection.close()
     return a
+
+def delete_field(id):
+    try:
+        connection = mysql.connector.connect(host=hostname,
+                                            database='hub',
+                                            user='root',
+                                            password='password')
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute(f"DELETE FROM ff WHERE `Fieldid` = {id};")
+            
+            connection.commit()
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
