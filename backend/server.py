@@ -96,8 +96,9 @@ def updateStatus():
 @app.route('/drone/camera', methods=['POST'])
 def camera():
     image = request.form.get('image', type=str)
-    Drone.predictImage(image)
-    return "200"
+    predict = Drone.predictImage(image)
+    if predict[0] == 'r': return {'harvest': 'false'}
+    else: return {'harvest': 'true'}
 
 @app.route('/drone/updatepos', methods=['POST'])
 def pos():
