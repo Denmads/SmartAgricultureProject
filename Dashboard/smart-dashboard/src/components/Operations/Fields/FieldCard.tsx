@@ -16,7 +16,7 @@ const FieldCard: FC<Props> = (props: Props): ReactElement => {
                 <div className="job-info-container">
                     <Stack direction="row" alignItems="center" justifyContent="space-between">
                         <Typography variant="h5">{props.info.name}</Typography>
-                        <IconButton color="error" onChange={() => {
+                        <IconButton color="error" onClick={() => {
                             deleteField(props.info.id);
                         }}>
                             <DeleteIcon />

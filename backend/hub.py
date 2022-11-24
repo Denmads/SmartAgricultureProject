@@ -10,15 +10,18 @@ class Hub:
         self.drones = []
         self.jobs = []
 
-    def newField(self, field):
+    def newField(self, height, width, name):
+        field = Field(height=height, width=width, name=name, db=db)
+        i = field.insert_into_db()
+        field.id = i
         self.fields.append(field)
-        #field.insert_into_db()
 
     def newDrone(self, drone):
         self.drones.append(drone)
     
     def register(self, id):
-        drone = Drone(None, id)
+        drone = Drone(None, id, db)
+        drone.register()
         self.newDrone(drone)
 
     def newJob(self, dronesList, fieldId):
@@ -32,7 +35,9 @@ class Hub:
     def deleteField(self, fieldId):
         for field in self.fields:
             if field.id == fieldId:
+                print("Removing field")
                 self.fields.remove(field)
+                db.delete_field(field.id)
         return
 
     def deleteDrone(self, droneId):
@@ -97,10 +102,10 @@ class Hub:
 
     def updateStatus(self, droneId, status):
         for drone in self.drones:
+
             if drone.id == droneId:
                 drone.status = status
-            
-        db.updateStatus(droneId, status)
+                db.updateStatus(droneId, status)
         
     def getjobs(self):
         joblist = []

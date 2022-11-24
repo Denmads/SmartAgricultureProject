@@ -22,7 +22,7 @@ const FieldsList: FC<Props> = (props: Props): ReactElement => {
 
     return (
         <Paper sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '1rem', gridArea: props.areaName, minHeight: "450px"}}>
-            <Typography variant="h4">Active Jobs</Typography>
+            <Typography variant="h4">Fields</Typography>
             {isError && error instanceof Error && <Alert severity="error" sx={{width: '100%'}}>An error happened:<br/> {error.message}</Alert>}
             {!isError && <Scrollbar disableTracksWidthCompensation thumbYProps={{style:{backgroundColor: theme.palette.secondary.main}}}>
                 <div style={{display: 'flex', flexDirection: 'column', gap: '1rem', paddingRight: '1rem', marginTop: '1rem'}} >

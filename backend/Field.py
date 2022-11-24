@@ -1,11 +1,11 @@
-import db
 
 class Field:
-    def __init__(self, height, width, name, id=-1):
+    def __init__(self, height, width, name, db, id=-1):
         self.height = height
         self.width = width
         self.name = name
         self.id = id
+        self.db = db
 
     def __str__(self):
         return f"({self.id}){self.name}({self.height} by {self.width})"
@@ -22,4 +22,5 @@ class Field:
         return j
 
     def insert_into_db(self):
-        db.save(f"INSERT INTO ff (Width, height, FieldName)VALUES({self.width}, {self.height}, {self.name})")
+        a = self.db.insert_into_db(f"INSERT INTO ff (Width, Height, FieldName) VALUES ({self.width}, {self.height}, '{self.name}')")
+        return a
