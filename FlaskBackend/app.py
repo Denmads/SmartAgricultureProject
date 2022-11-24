@@ -13,7 +13,7 @@ def version():
 # Takes base64encoded data
 @app.route("/predictImage", methods=["POST"])
 def predictImage():
-    img_data = base64.decodebytes(request.get_data())
+    img_data = base64.decodebytes(request.get_data(as_text=True).encode("utf-8"))
     result = predict(img_data)
     return result
 

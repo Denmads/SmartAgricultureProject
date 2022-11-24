@@ -125,7 +125,7 @@ def updatePos(DroneId, x, y):
                                             password='password')
         if connection.is_connected():
             cursor = connection.cursor()
-            cursor.execute(f"UPDATE drone SET x ={x}, y = {y} WHERE Droneid = {DroneId};")
+            cursor.execute(f"UPDATE drone SET x ={x}, y = {y} WHERE Droneid = '{DroneId}';")
             connection.commit()
 
     except Error as e:

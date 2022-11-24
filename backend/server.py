@@ -1,5 +1,5 @@
 from flask import Flask, request, json
-from Drone import Drone
+from Drone import Drone, predictImage
 from hub import Hub, loadHub
 import db
 from flask_cors import CORS
@@ -121,14 +121,16 @@ def updateStatus():
 
 @app.route('/drone/camera', methods=['POST'])
 def camera():
-    image = request.form.get('image', type=str)
-    Drone.predictImage(image) 
+    image = json.loads(request.data)["image"]     #request.form.get('image', type=str)
+    predict = predictImage(image)
+    if predict[0] == 'r': return {'harvest': 'false'}
+    else: return {'harvest': 'true'}
 
-@app.route('/drone/updatepos', methods=['POST'])
+@app.route('/drone/updatepos', methods=['PATCH'])
 def pos():
-    drone_id = request.form.get('drone_id', type=str)
-    x = request.form.get('x', type=int)
-    y = request.form.get('y', type=int)
+    drone_id = request.args.get('id', type=str)
+    x = request.args.get('x', type=int)
+    y = request.args.get('y', type=int)
     hub.updatePos(drone_id, x, y)
     return "200"
 
@@ -140,7 +142,6 @@ def isThereANewJob():
     drone_id = str(data['drone_id'])
 
     result = hub.droneUpdate(drone_id)
-    print("RESULTS",result)
     return result
 
 app.run(host='0.0.0.0', port=3000)

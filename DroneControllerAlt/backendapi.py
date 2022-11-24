@@ -52,7 +52,7 @@ class BackendAPI:
     
     def update_position(self, id: str, x: float, y: float) -> int:
         try:
-            r: req.Response = req.get(self._url("drone/updatepos"), params={"id": id, "x": x, "y": y})
+            r: req.Response = req.patch(self._url("drone/updatepos"), params={"id": id, "x": int(x), "y": int(y)})
             return r.status_code
         except:
             return 999

@@ -5,7 +5,7 @@ import time
 from util import DroneStatus
 
 TIME_BETWEEN_MOVE_UPDATES = 1
-TIME_BETWEEN_CAMERA_UPDATES = 5
+TIME_BETWEEN_CAMERA_UPDATES = 10
 
 class DroneController:
     
@@ -36,23 +36,24 @@ class DroneController:
         while True:
             if self.job is None or self.job.reached_point(self.x, self.y):
                 self._check_for_job()
-            
-            if self.status == DroneStatus.HARVESTING:
-                if time.time_ns() > self.harvest_end_time:
-                    self._set_status(DroneStatus.WORKING)
-                    print("Harvest done")
-            else:
-                time_diff_pos = self.last_pos_update - int(time.time_ns() / 1000000)
-                if time_diff_pos >= TIME_BETWEEN_MOVE_UPDATES:
-                    self._add_to_position(
-                        self.job.get_x_move(TIME_BETWEEN_MOVE_UPDATES * 1000, self.x),
-                        self.job.get_y_move(TIME_BETWEEN_MOVE_UPDATES * 1000, self.y)
-                    )
-                    print(f"New position: {self.x}, {self.y}")
-                    
-                time_diff_camera = self.last_camera_update - int(time.time_ns() / 1000000)
-                if time_diff_camera >= TIME_BETWEEN_CAMERA_UPDATES:
-                    self._send_image()
+            else: 
+                if self.status == DroneStatus.HARVESTING:
+                    if time.time_ns() > self.harvest_end_time:
+                        self._set_status(DroneStatus.WORKING)
+                        print("Harvest done")
+                else:
+                    time_diff_pos =  int(time.time_ns() / 1000000) - self.last_pos_update
+                    if time_diff_pos >= TIME_BETWEEN_MOVE_UPDATES:
+                        self._add_to_position(
+                            self.job.get_x_move(TIME_BETWEEN_MOVE_UPDATES * 1000, self.x),
+                            self.job.get_y_move(TIME_BETWEEN_MOVE_UPDATES * 1000, self.y)
+                        )
+                        print(f"New position: {self.x}, {self.y}")
+                        
+                    time_diff_camera =  int(time.time_ns() / 1000000) - self.last_camera_update
+                    if time_diff_camera >= TIME_BETWEEN_CAMERA_UPDATES:
+                        self._send_image()
+            time.sleep(0.1)
                 
                 
     

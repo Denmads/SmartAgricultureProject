@@ -32,9 +32,6 @@ class Drone:
 
     def to_json(self):
         return {"id":self.id, "field":self.field.id, "x":self.x, "y":self.y, "status":self.status}
-
-    def predictImage(self, image):
-        return whatIsThis(image)
         
     def updateStatus(self, status):
         #send data to database
@@ -48,3 +45,6 @@ class Drone:
 
     def register(self):
         self.db.insert_into_db(f"INSERT INTO drone (Droneid, x, y, DroneStatus, Fieldid) VALUES ('{self.id}', {self.x}, {self.y}, '{self.status}', {self.field.id})")
+
+def predictImage(image):
+        return whatIsThis(image)
