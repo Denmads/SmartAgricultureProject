@@ -12,7 +12,7 @@ DroneHub droneHub = new();
 // Send ID to DroneHub
 while (true) {
     Console.WriteLine($"Trying to register ({droneData.drone_id})...");
-    bool registered = droneHub.Post("drone/register/drone", Jsonfy(droneData.drone_id))
+    bool registered = droneHub.Post("drone/register/drone", Jsonfy(droneData.drone_id));
     if (registered) {
         Console.WriteLine($"Drone registered: {droneData.drone_id}");
         break;
@@ -50,7 +50,7 @@ while (true)
             var cameraImage = GetImage.GetImageObject();
             Console.WriteLine($"drone/camera: {cameraImage.image.Substring(0, 100)}");
             var i = Jsonfy(cameraImage);
-            droneHub.Post("drone/camera", i);
+            var s = droneHub.Post("drone/camera", i);
 
             currentJob.hasJob = false;
         }
