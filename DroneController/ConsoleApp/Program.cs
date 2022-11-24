@@ -12,7 +12,7 @@ DroneHub droneHub = new();
 // Send ID to DroneHub
 if (droneHub.Post("drone/register/drone", Jsonfy(droneData.drone_id)))
 {
-    Console.WriteLine($"Drone registered: {droneData.drone_id}");
+    Console.WriteLine($"drone/register/drone {Jsonfy(droneData.drone_id)}");
 }
 
 while (true)
@@ -22,32 +22,30 @@ while (true)
         FlyDrone();
 
         var json = Jsonfy(droneData.position);
-        Console.WriteLine(json);
         droneHub.Post("drone/updatepos", json);
+        Console.WriteLine($"drone/updatepos {json}");
 
         if (DestinationReached(droneData.position, currentJob))
         {
             droneData.status = "done";
-            Console.WriteLine("Destination reached");
-
-            droneHub.Post("/drone/updatestatus", Jsonfy(droneData));
-
+            droneHub.Post("drone/updatestatus", Jsonfy(droneData));
+            Console.WriteLine($"drone/updatestatus {droneData.status}");
 
             // Sending image
             var cameraImage = GetImage.GetImageObject();
-            Console.WriteLine(cameraImage.image.Substring(0, 100));
+            Console.WriteLine($"drone/camera: {cameraImage.image.Substring(0, 100)}");
             droneHub.Post("drone/camera", Jsonfy(cameraImage));
 
             currentJob = new();
             Thread.Sleep(5000);
         }
-
     }
     else
     {
         currentJob = droneHub.GetNewJob(Jsonfy(droneData.drone_id));
         droneData.status = "working";
         droneHub.Post("drone/updatestatus", Jsonfy(droneData));
+        Console.WriteLine($"drone/updatestatus {Jsonfy(droneData)}");
     }
 
     Thread.Sleep(100);
