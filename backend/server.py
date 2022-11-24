@@ -1,8 +1,8 @@
 from flask import Flask, request
-from Drone import Drone
 from hub import Hub
 import db
 from flask_cors import CORS
+import Drone
 
 app = Flask(__name__)
 CORS(app)
