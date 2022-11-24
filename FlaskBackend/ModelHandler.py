@@ -12,7 +12,6 @@ def __load_model():
   model = tf.keras.models.load_model(model_path)
 
 def __load_image(image_data):
-  print(image_data)
   return Image.open(io.BytesIO(image_data))
 
 def __format_image(img):
