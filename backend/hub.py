@@ -9,6 +9,7 @@ class Hub:
         self.fields = []
         self.drones = []
         self.jobs = []
+        self.jobIdCount = 0
 
     def newField(self, height, width, name):
         field = Field(height=height, width=width, name=name, db=db)
@@ -29,7 +30,9 @@ class Hub:
         for drone in self.drones:
             if dronesList.__contains__(drone.id): 
                 drones.append(drone)
-        job = Job(db=db, fieldId=fieldId, drones=drones)
+
+        self.jobIdCount += 1
+        job = Job(db=db, fieldId=fieldId, drones=drones, id=self.jobIdCount)
         self.jobs.append(job)
         job.insert_into_db()
 
@@ -112,8 +115,8 @@ class Hub:
         
     def getjobs(self):
         joblist = []
-        for field in self.jobs:
-            f = field.to_json_with_drones(self)
+        for job in self.jobs:
+            f = job.to_json()
             joblist.append(f)
         return joblist
             

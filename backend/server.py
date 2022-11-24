@@ -34,6 +34,9 @@ def createJob():
 
     dronesList = data['drones']
     fieldId = int(data['field'])
+
+    print(fieldId)
+
     hub.newJob(dronesList=dronesList, fieldId=fieldId)
     return "200"
 
