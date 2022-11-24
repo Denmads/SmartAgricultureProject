@@ -42,13 +42,15 @@ while (true)
             Console.WriteLine("Destination reached");
 
             droneData.status = "done";
-            Console.WriteLine($"Drone status: {droneData.status}");
-            droneHub.Post("/drone/updatestatus", Jsonfy(droneData));
+            var status = Jsonfy(droneData);
+            droneHub.Post("drone/updatestatus", status);
+            Console.WriteLine($"drone/updatestatus {status}");
 
             // Sending image
             var cameraImage = GetImage.GetImageObject();
             Console.WriteLine($"drone/camera: {cameraImage.image.Substring(0, 100)}");
-            droneHub.Post("drone/camera", Jsonfy(cameraImage));
+            var i = Jsonfy(cameraImage);
+            droneHub.Post("drone/camera", i);
 
             currentJob.hasJob = false;
         }
