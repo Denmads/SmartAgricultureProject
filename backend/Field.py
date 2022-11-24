@@ -22,4 +22,4 @@ class Field:
         return j
 
     def insert_into_db(self):
-        db.save(f"INSERT INTO ff (Width, height, FieldName)VALUES({self.width}, {self.height}, {self.name})")
+        db.insert_into_db(f"INSERT INTO ff (Width, height, FieldName)VALUES({self.width}, {self.height}, {self.name})")
