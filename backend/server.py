@@ -123,8 +123,8 @@ def updateStatus():
 def camera():
     image = json.loads(request.data)["image"]     #request.form.get('image', type=str)
     predict = predictImage(image)
-    if predict[0] == 'r': return {'harvest': 'false'}
-    else: return {'harvest': 'true'}
+    if predict[0] == 'r': return {'harvest': False}
+    else: return {'harvest': True}
 
 @app.route('/drone/updatepos', methods=['PATCH'])
 def pos():
