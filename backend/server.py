@@ -27,9 +27,15 @@ def getJobs():
 
 @app.route('/job', methods=['POST'])
 def createJob():
-    dronesList = request.form.getList('drones') 
-    fieldId = request.form.getList('field', type=int) 
-    return hub.newJob(dronesList=dronesList, fieldId=fieldId)
+
+    data = json.loads(request.data)
+
+    print(data)
+
+    dronesList = data['drones']
+    fieldId = int(data['field'])
+    hub.newJob(dronesList=dronesList, fieldId=fieldId)
+    return "200"
 
 @app.route('/field', methods=['POST'])
 def createField():
@@ -41,7 +47,7 @@ def createField():
     height = int(data['height'])
 
     hub.newField(height=height, width=width, name=name)
-    return "201"
+    return "200"
 
 @app.route('/job', methods=['DELETE'])
 def deleteJob():
@@ -54,7 +60,7 @@ def deleteJob():
 def deleteField():
     ids = request.args.get('id', type=int)
     hub.deleteField(ids)
-    
+
     return "204"
 
 

@@ -2,6 +2,7 @@ import mysql.connector
 import sys
 from Drone import Drone
 from Field import Field
+from job import Job
 from mysql.connector import Error
 hostname = 'localhost'
 db_module = sys.modules[__name__]
@@ -85,6 +86,30 @@ def getAllField():
 
     return fields
 
+def getAllJobs():
+    jobs = []
+    try:
+        connection = mysql.connector.connect(host=hostname,
+                                            database='hub',
+                                            user='root',
+                                            password='password')
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute("SELECT * FROM job;")
+            result = cursor.fetchall()
+            
+            for job in result:
+                jobs.append(Job(db=db_module, drones=job[1], fieldId=job[0], id=job[2]))
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+    return jobs
+
 def updatePos(DroneId, x, y):
     try:
         connection = mysql.connector.connect(host=hostname,
@@ -142,7 +167,7 @@ def insert_into_db(quary):
             cursor.close()
             connection.close()
     return a
-    
+
 def delete_field(id):
     try:
         connection = mysql.connector.connect(host=hostname,
@@ -152,6 +177,25 @@ def delete_field(id):
         if connection.is_connected():
             cursor = connection.cursor()
             cursor.execute(f"DELETE FROM ff WHERE Fieldid = {id};")
+
+            connection.commit()
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+def delete_job(id):
+    try:
+        connection = mysql.connector.connect(host=hostname,
+                                            database='hub',
+                                            user='root',
+                                            password='password')
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute(f"DELETE FROM job WHERE jobId = {id};")
 
             connection.commit()
 

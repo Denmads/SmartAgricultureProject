@@ -29,8 +29,10 @@ class Hub:
         for drone in self.drones:
             if dronesList.__contains__(drone.id): 
                 drones.append(drone)
-        job = Job(fieldId=fieldId, drones=drones)
+        job = Job(db=db, fieldId=fieldId, drones=drones)
         self.jobs.append(job)
+        job.insert_into_db()
+
 
     def deleteField(self, fieldId):
         for field in self.fields:
@@ -50,6 +52,7 @@ class Hub:
         for job in self.jobs:
             if job.id == jobId:
                 self.jobs.remove(job)
+                db.delete_job(job.id)
         return
 
     def getAllDrones(self):
@@ -109,7 +112,7 @@ class Hub:
         
     def getjobs(self):
         joblist = []
-        for field in self.fields:
+        for field in self.jobs:
             f = field.to_json_with_drones(self)
             joblist.append(f)
         return joblist
@@ -124,6 +127,7 @@ class Hub:
 
 def loadHub():
     hub = Hub()
+    hub.jobs = db.getAllJobs()
     hub.fields = db.getAllField()
     hub.drones = db.getAllDrones()
     return hub
