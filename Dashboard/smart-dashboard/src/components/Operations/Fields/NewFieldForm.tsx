@@ -96,7 +96,7 @@ const NewFieldForm: FC<Props> = (props: Props): ReactElement => {
 
         const {data, status, statusText} = await createField(newInfo);
 
-        if (status !== 200) {
+        if (status === 200) {
             displaySnack("success", "Field created!");
         }
         else {
