@@ -35,6 +35,7 @@ while (true)
         var json = Jsonfy(droneData.position);
         Console.WriteLine($"New Position: {json}");
         droneHub.Post("drone/updatepos", json);
+        Console.WriteLine($"drone/updatepos {json}");
 
         if (DestinationReached(droneData.position, currentJob))
         {
@@ -46,12 +47,11 @@ while (true)
 
             // Sending image
             var cameraImage = GetImage.GetImageObject();
-            Console.WriteLine(cameraImage.image.Substring(0, 100));
+            Console.WriteLine($"drone/camera: {cameraImage.image.Substring(0, 100)}");
             droneHub.Post("drone/camera", Jsonfy(cameraImage));
 
             currentJob.hasJob = false;
         }
-
     }
     else
     {

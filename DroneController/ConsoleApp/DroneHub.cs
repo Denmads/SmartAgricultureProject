@@ -9,14 +9,10 @@ namespace ConsoleApp
 
         public Job GetNewJob(string payload)
         {
-            var job = PostWithResult("/drone/update", payload);
+            var result = PostWithResult("/drone/update", payload);
+            var job = JsonConvert.DeserializeObject<Job>(result);
 
-            if (job == null)
-            {
-                return null;
-            }
-
-            return JsonConvert.DeserializeObject<Job>(job);
+            return job;
         }
 
         private string PostWithResult(string parameters, string payload)
