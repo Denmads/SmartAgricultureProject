@@ -12,13 +12,14 @@ def __load_model():
   model = tf.keras.models.load_model(model_path)
 
 def __load_image(image_data):
+  print(image_data)
   return Image.open(io.BytesIO(image_data))
 
 def __format_image(img):
   img = img.resize((32,32))
   print(f"IMG SIZE AFTER RESIZE: {img.size}")
   img_arr = np.asarray(img)
-  return img_arr.reshape([-1, 32,32 ,3])
+  return img_arr.reshape([-1, 32, 32, 3])
 
 def predict(image_input_data):
   if model == None:
