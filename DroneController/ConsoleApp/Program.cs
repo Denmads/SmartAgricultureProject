@@ -10,10 +10,12 @@ Console.WriteLine($"Drone booting up ...");
 DroneHub droneHub = new();
 
 // Send ID to DroneHub
-while (true) {
+while (true)
+{
     Console.WriteLine($"Trying to register ({droneData.drone_id})...");
-    bool registered = droneHub.Post("drone/register/drone", Jsonfy(droneData.drone_id))
-    if (registered) {
+    bool registered = droneHub.Post("drone/register/drone", Jsonfy(droneData.drone_id));
+    if (registered)
+    {
         Console.WriteLine($"Drone registered: {droneData.drone_id}");
         break;
     }
@@ -49,8 +51,19 @@ while (true)
             // Sending image
             var cameraImage = GetImage.GetImageObject();
             Console.WriteLine($"drone/camera: {cameraImage.image.Substring(0, 100)}");
-            var i = Jsonfy(cameraImage);
-            droneHub.Post("drone/camera", i);
+            var image = Jsonfy(cameraImage);
+            var result = droneHub.PostWithResult("drone/camera", image);
+
+            var harvest = JsonConvert.DeserializeObject<Harvest>(result);
+            if (harvest.harvest)
+            {
+                droneData.status = "harvest";
+                droneHub.Post("drone/updatestatus", Jsonfy(droneData));
+                for (int i = 0; i < 10; i++)
+                {
+                    Console.WriteLine($"{Jsonfy(droneData)}");
+                    }
+            }
 
             currentJob.hasJob = false;
         }
@@ -58,7 +71,8 @@ while (true)
     else
     {
         currentJob = droneHub.GetNewJob(Jsonfy(droneData.drone_id));
-        if (currentJob != null) {
+        if (currentJob != null)
+        {
             droneData.status = "working";
             droneHub.Post("drone/updatestatus", Jsonfy(droneData));
             Console.WriteLine($"Drone status: {droneData.status}");
