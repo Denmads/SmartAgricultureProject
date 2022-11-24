@@ -44,7 +44,8 @@ class Drone:
         db.updatePos(self.id, x, y)
 
     def register(self):
-        db.insert_into_db(f"INSERT INTO drone (Droneid, x, y, DroneStatus, Fieldid) VALUES ('{self.id}', {self.x}, {self.y}, '{self.status}', {self.field.id})")
+        a = db.insert_into_db(f"INSERT INTO drone (Droneid, x, y, DroneStatus, Fieldid) VALUES ('{self.id}', {self.x}, {self.y}, '{self.status}', {self.field.id})")
+        return a
 
 def predictImage(image):
     return whatIsThis(image)

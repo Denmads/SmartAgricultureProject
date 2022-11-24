@@ -106,6 +106,7 @@ def updateStatus(droneId, status):
             connection.close()
 
 def insert_into_db(quary):
+    a = -1
     try:
         connection = mysql.connector.connect(host=hostname,
                                             database='hub',
@@ -114,6 +115,7 @@ def insert_into_db(quary):
         if connection.is_connected():
             cursor = connection.cursor()
             cursor.execute(quary)
+            a = cursor.lastrowid
         
         connection.commit()
 
@@ -123,3 +125,4 @@ def insert_into_db(quary):
         if connection.is_connected():
             cursor.close()
             connection.close()
+    return a
