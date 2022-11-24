@@ -1,6 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
-hostname = 'db'
+hostname = 'localhost'
 try:
     connection = mysql.connector.connect(host=hostname,
                                          database='hub',
@@ -114,6 +114,8 @@ def insert_into_db(quary):
         if connection.is_connected():
             cursor = connection.cursor()
             cursor.execute(quary)
+        
+        connection.commit()
 
     except Error as e:
         print("Error while connecting to MySQL", e)

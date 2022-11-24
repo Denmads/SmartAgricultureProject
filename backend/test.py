@@ -1,11 +1,8 @@
 
 from parth import Parth
+from Drone import Drone
 
 if __name__ == "__main__":
-    i = 20
-    j = 30
-    parth = Parth(x=i,y=j,fieldid=2)
-
-    for x in range(0,i+1):
-        for y in range(0,j+1):
-            print(parth.getNextTile())
+    d = Drone(field=None, id= "asdfghhjfsad")
+    print(d.status)
+    d.register()

@@ -13,7 +13,7 @@ class Drone:
             self.x = -1
             self.y = -1 
             self.field = Field(-1, -1, "None", -1)
-            self.status = "assign field"
+            self.status = "idle"
         else:
             self.field = field
             self.x = 0
@@ -44,7 +44,7 @@ class Drone:
         db.updatePos(self.id, x, y)
 
     def register(self):
-        db.save(f"INSERT INTO drone (Droneid, x, y, DroneStatus, Fieldid) VALUES({self.id}, {self.x}, {self.y}, {self.status}, {self.fieldId})")
+        db.insert_into_db(f"INSERT INTO drone (Droneid, x, y, DroneStatus, Fieldid) VALUES ('{self.id}', {self.x}, {self.y}, '{self.status}', {self.field.id})")
 
 def predictImage(image):
     return whatIsThis(image)
