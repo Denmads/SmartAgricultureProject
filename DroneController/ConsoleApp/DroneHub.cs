@@ -12,7 +12,7 @@ namespace ConsoleApp
             var result = PostWithResult("/drone/update", payload);
             var job = JsonConvert.DeserializeObject<Job>(result);
 
-            if (job.hasJob == false)
+            if (job == null || job.hasJob == false)
             {
                 Console.WriteLine("Mocking job");
                 Random rnd = new();
