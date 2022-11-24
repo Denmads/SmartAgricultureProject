@@ -19,7 +19,7 @@ namespace ConsoleApp
             return job;
         }
 
-        private string PostWithResult(string parameters, string payload)
+        public string PostWithResult(string parameters, string payload)
         {
             try
             {
