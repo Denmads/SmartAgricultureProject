@@ -69,7 +69,7 @@ const NewJobForm: FC<Props> = (props: Props): ReactElement => {
 
         const {data, status, statusText} = await createJob(field, selectedDrones);
 
-        if (status !== 200) {
+        if (status === 200) {
             displaySnack("success", "Job created!");
         }
         else {
