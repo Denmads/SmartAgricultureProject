@@ -138,6 +138,9 @@ def isThereANewJob():
     data = json.loads(request.data)
 
     drone_id = str(data['drone_id'])
-    return hub.droneUpdate(drone_id)
+
+    result = hub.droneUpdate(drone_id)
+    print("RESULTS",result)
+    return result
 
 app.run(host='0.0.0.0', port=3000)

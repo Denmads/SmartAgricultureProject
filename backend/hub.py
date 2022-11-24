@@ -32,7 +32,8 @@ class Hub:
                 drones.append(drone)
 
         self.jobIdCount += 1
-        job = Job(db=db, fieldId=fieldId, drones=drones, id=self.jobIdCount)
+        da_field = list(filter(lambda field: field.id == fieldId, self.fields))[0]
+        job = Job(db=db, field=da_field, drones=drones, id=self.jobIdCount)
         self.jobs.append(job)
         job.insert_into_db()
 
@@ -123,14 +124,14 @@ class Hub:
     def droneUpdate(self, drone_id):
         for job in self.jobs:
             for droneId in job.droneslist:
-                if drone_id == droneId:
+                if drone_id == droneId.id:
                     [x,y] = job.parth.getNextTile()
-                    return {"hasjob": "true", "x": x, "y": y}
-        return {"hasjob": "false"}
+                    return {"hasJob": "true", "x": x, "y": y}
+        return {"hasJob": "false"}
 
 def loadHub():
     hub = Hub()
-    hub.jobs = db.getAllJobs()
     hub.fields = db.getAllField()
-    hub.drones = db.getAllDrones()
+    hub.drones = db.getAllDrones(hub.fields)
+    hub.jobs = db.getAllJobs(hub.fields, hub.drones)
     return hub

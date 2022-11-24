@@ -31,7 +31,7 @@ finally:
 
 
 
-def getAllDrones():
+def getAllDrones(fields):
     drones = []
     try:
         connection = mysql.connector.connect(host=hostname,
@@ -48,9 +48,7 @@ def getAllDrones():
                 if drone[4] == -1:
                     drones.append(Drone(None, drone[0], db_module))
                 else:
-                    fields = getAllField()
                     field = list(filter(lambda field: field.id == drone[4], fields))[0]
-
                     drones.append(Drone(field, drone[0]))
 
     except Error as e:
@@ -86,7 +84,7 @@ def getAllField():
 
     return fields
 
-def getAllJobs():
+def getAllJobs(fields, drones):
     jobs = []
     try:
         connection = mysql.connector.connect(host=hostname,
@@ -99,7 +97,16 @@ def getAllJobs():
             result = cursor.fetchall()
             
             for job in result:
-                jobs.append(Job(db=db_module, drones=job[1], fieldId=job[0], id=job[2]))
+                jobId = job[0]
+                job_list = list(filter(lambda job: job.id == jobId, jobs))
+                if len(job_list) > 0: 
+                    da_drone = list(filter(lambda drone: drone.id == job[1], drones))[0]
+                    job_list[0].droneslist.append(da_drone)
+                else:
+                    da_drone = list(filter(lambda drone: drone.id == job[1], drones))[0]
+                    da_field = list(filter(lambda field: field.id == job[2], fields))[0]
+                    job = Job(db_module, da_field, [da_drone], jobId)
+                    jobs.append(job)
 
     except Error as e:
         print("Error while connecting to MySQL", e)
