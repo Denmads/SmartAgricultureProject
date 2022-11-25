@@ -129,6 +129,24 @@ class Hub:
                     return {"hasJob": "true", "x": x, "y": y}
         return {"hasJob": "false"}
 
+    def save_image(self, id, image):
+        for drone in self.drones:
+            if drone.id == id:
+                drone.image = image
+                drone.label = None
+                return
+
+    def getImage(self, id):
+        for drone in self.drones:
+            if drone.id == id:
+                return {'id': id, 'image': drone.image, 'label': drone.label}
+    
+    def giveLabel(self, id, label):
+        for drone in self.drones:
+            if drone.id == id:
+                drone.label = label
+                return
+
 def loadHub():
     hub = Hub()
     hub.fields = db.getAllField()

@@ -3,10 +3,12 @@ from api import whatIsThis
 
 class Drone:
 
-    def __init__(self, field, id, db):
+    def __init__(self, field, id, db, image=None, label=None):
         self.id = id
         self.assignField(field=field)
         self.db = db
+        self.image = image
+        self.label = label
 
     def assignField(self, field=None):
         if field == None:
@@ -45,6 +47,9 @@ class Drone:
 
     def register(self):
         self.db.insert_into_db(f"INSERT INTO drone (Droneid, x, y, DroneStatus, Fieldid) VALUES ('{self.id}', {self.x}, {self.y}, '{self.status}', {self.field.id})")
+
+    
+
 
 def predictImage(image):
         return whatIsThis(image)

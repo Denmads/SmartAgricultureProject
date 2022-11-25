@@ -122,7 +122,11 @@ def updateStatus():
 @app.route('/drone/camera', methods=['POST'])
 def camera():
     image = json.loads(request.data)["image"]     #request.form.get('image', type=str)
+    droneId = json.loads(request.data)["id"]
+    db.save_image(id=droneId, image=image)
+    hub.save_image(id=droneId, image=image)
     predict = predictImage(image)
+    hub.giveLabel(droneId, predict)
     if predict[0] == 'r': return {'harvest': False}
     else: return {'harvest': True}
 
@@ -143,5 +147,11 @@ def isThereANewJob():
 
     result = hub.droneUpdate(drone_id)
     return result
+
+@app.route('/getdroneimage')
+def sendImage():
+    id = request.args.get('id', type=str)
+    image = hub.getImage(id)
+    return {'image': image}
 
 app.run(host='0.0.0.0', port=3000)

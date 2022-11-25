@@ -212,3 +212,22 @@ def delete_job(id):
         if connection.is_connected():
             cursor.close()
             connection.close()
+
+
+def save_image(self, id, image):
+    try:
+        connection = mysql.connector.connect(host=hostname,
+                                            database='hub',
+                                            user='root',
+                                            password='password')
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute(f"UPDATE drone SET Camera = '{image}' WHERE Droneid = '{droneId}';")
+            connection.commit()
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
