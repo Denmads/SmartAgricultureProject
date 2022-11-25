@@ -9,6 +9,7 @@ class Hub:
         self.fields = []
         self.drones = []
         self.jobs = []
+        self.jobIdCount = 0
 
     def newField(self, height, width, name):
         field = Field(height=height, width=width, name=name, db=db)
@@ -20,7 +21,8 @@ class Hub:
         self.drones.append(drone)
     
     def register(self, id):
-        drone = Drone(None, id)
+        drone = Drone(None, id, db)
+        drone.register()
         self.newDrone(drone)
 
     def newJob(self, dronesList, fieldId):
@@ -28,13 +30,20 @@ class Hub:
         for drone in self.drones:
             if dronesList.__contains__(drone.id): 
                 drones.append(drone)
-        job = Job(fieldId=fieldId, drones=drones)
+
+        self.jobIdCount += 1
+        da_field = list(filter(lambda field: field.id == fieldId, self.fields))[0]
+        job = Job(db=db, field=da_field, drones=drones, id=self.jobIdCount)
         self.jobs.append(job)
+        job.insert_into_db()
+
 
     def deleteField(self, fieldId):
         for field in self.fields:
             if field.id == fieldId:
+                print("Removing field")
                 self.fields.remove(field)
+                db.delete_field(field.id)
         return
 
     def deleteDrone(self, droneId):
@@ -47,6 +56,7 @@ class Hub:
         for job in self.jobs:
             if job.id == jobId:
                 self.jobs.remove(job)
+                db.delete_job(job.id)
         return
 
     def getAllDrones(self):
@@ -99,29 +109,29 @@ class Hub:
 
     def updateStatus(self, droneId, status):
         for drone in self.drones:
+
             if drone.id == droneId:
                 drone.status = status
-            
-        db.updateStatus(droneId, status)
+                db.updateStatus(droneId, status)
         
     def getjobs(self):
         joblist = []
-        for field in self.fields:
-            f = field.to_json_with_drones(self)
+        for job in self.jobs:
+            f = job.to_json()
             joblist.append(f)
         return joblist
             
     def droneUpdate(self, drone_id):
         for job in self.jobs:
             for droneId in job.droneslist:
-                if drone_id == droneId:
+                if drone_id == droneId.id:
                     [x,y] = job.parth.getNextTile()
-                    return {"hasjob": "true", "x": x, "y": y}
-        return {"hasjob": "false"}
-        
+                    return {"hasJob": "true", "x": x, "y": y}
+        return {"hasJob": "false"}
 
 def loadHub():
     hub = Hub()
     hub.fields = db.getAllField()
-    hub.drones = db.getAllDrones()
+    hub.drones = db.getAllDrones(hub.fields)
+    hub.jobs = db.getAllJobs(hub.fields, hub.drones)
     return hub

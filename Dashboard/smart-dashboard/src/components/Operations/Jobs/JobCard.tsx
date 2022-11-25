@@ -19,7 +19,7 @@ const JobsCard: FC<Props> = (props: Props): ReactElement => {
                 <div className="job-info-container">
                     <Stack direction="row" alignItems="center" justifyContent="space-between">
                         <Typography variant="h5">Job on {props.info.field}</Typography>
-                        <IconButton color="error" onChange={() => {
+                        <IconButton color="error" onClick={() => {
                             stopJob(props.info.id)
                         }}>
                             <CancelIcon />

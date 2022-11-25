@@ -19,7 +19,12 @@ class BackendAPI:
     
     def check_for_job(self, id: str) -> Union[MovePoint, None]:
         try:
-            r: req.Response = req.post(self._url("drone/job"), json={"id": id})
+
+            data = {
+                "drone_id": id
+            }
+
+            r: req.Response = req.post(self._url("drone/update"), json=data)
             if r.status_code != 200:
                 return None
             else:
@@ -34,14 +39,20 @@ class BackendAPI:
 
     def update_status(self, id: str, status: DroneStatus) -> int:
         try:
-            r: req.Response = req.get(self._url("drone/updatestatus"), params={"id": id, "status": status.value})
+
+            data = {
+                "drone_id": id,
+                "status": status.value
+            }
+
+            r: req.Response = req.post(self._url("drone/updatestatus"), json=data)
             return r.status_code
         except:
             return 999
     
     def update_position(self, id: str, x: float, y: float) -> int:
         try:
-            r: req.Response = req.get(self._url("drone/updatepos"), params={"id": id, "x": round(x), "y": round(y)})
+            r: req.Response = req.patch(self._url("drone/updatepos"), params={"id": id, "x": int(x), "y": int(y)})
             return r.status_code
         except:
             return 999

@@ -1,6 +1,6 @@
 
 class Field:
-    def __init__(self, db, height, width, name, id=-1):
+    def __init__(self, height, width, name, db, id=-1):
         self.height = height
         self.width = width
         self.name = name

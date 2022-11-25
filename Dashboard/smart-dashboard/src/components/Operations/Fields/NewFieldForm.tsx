@@ -111,7 +111,7 @@ const NewFieldForm: FC<Props> = (props: Props): ReactElement => {
             <TextField required label="Name" variant="outlined" onChange={nameChanged} error={nameError !== undefined} helperText={nameError ? nameError : ""}/>
             <TextField required label="Width" variant="outlined" onChange={widthChanged} error={widthError !== undefined} helperText={widthError ? widthError : ""}/>
             <TextField required label="Height" variant="outlined" onChange={heightChanged} error={heightError !== undefined} helperText={heightError ? heightError : ""}/>
-            <Button variant="contained" sx={matches ? {width: "100%"} : {width: "35%"}} onClick={onClick}>Create Job</Button>
+            <Button variant="contained" sx={matches ? {width: "100%"} : {width: "35%"}} onClick={onClick}>Create Field</Button>
             <Snackbar open={snackOpen} autoHideDuration={6000} onClose={snackClose} anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
                 <Alert onClose={snackClose} severity={snackSeverity} sx={{width: '100%'}}>
                     {snackMessage}

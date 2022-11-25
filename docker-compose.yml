@@ -15,11 +15,11 @@ services:
       - db
       - flask-backend
   
-  dashboard:
-    build: ./Dashboard
-    ports:
-      - "80:80"
-    environment:
-      - PORT=80
-    depends_on:
-      - dronehub
+  # dashboard:
+  #   build: ./Dashboard
+  #   ports:
+  #     - "80:80"
+  #   environment:
+  #     - PORT=80
+  #   depends_on:
+  #     - dronehub
