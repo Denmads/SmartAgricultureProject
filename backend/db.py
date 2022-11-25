@@ -49,7 +49,7 @@ def getAllDrones(fields):
                     drones.append(Drone(None, drone[0], db_module))
                 else:
                     field = list(filter(lambda field: field.id == drone[4], fields))[0]
-                    drones.append(Drone(field, drone[0]))
+                    drones.append(Drone(field, drone[0], image=drone[5], label=drone[6]))
 
     except Error as e:
         print("Error while connecting to MySQL", e)
