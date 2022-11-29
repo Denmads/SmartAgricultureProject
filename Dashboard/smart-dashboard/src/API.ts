@@ -39,4 +39,9 @@ async function deleteField (id: number) {
     return {status, statusText};
 }
 
-export {fetchAllDroneInfo, fetchAllFieldInfo, fetchAllJobInfo, createJob, createField, stopJob, deleteField}
+async function getDroneImage(id: string) {
+    const {data} = await axios.get(base + "/getdroneimage?id=" + id);
+    return data;
+}
+
+export {fetchAllDroneInfo, fetchAllFieldInfo, fetchAllJobInfo, createJob, createField, stopJob, deleteField, getDroneImage}

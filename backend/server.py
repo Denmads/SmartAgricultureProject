@@ -1,4 +1,4 @@
-from flask import Flask, request, json
+from flask import Flask, request, json, jsonify
 from Drone import Drone, predictImage
 from hub import Hub, loadHub
 import db
@@ -15,15 +15,15 @@ def hello_world():
 
 @app.route("/droneinfo")
 def getDrones():
-    return hub.getAllDrones()
+    return jsonify(hub.getAllDrones())
 
 @app.route('/fields')
 def getAllFields():
-    return hub.getAllField()
+    return jsonify(hub.getAllField())
 
 @app.route('/jobs')
 def getJobs():
-    return hub.getjobs()
+    return jsonify(hub.getjobs())
 
 @app.route('/job', methods=['POST'])
 def createJob():
@@ -80,7 +80,7 @@ def getDronePosisions():
         except:
             continue
     
-    return drones
+    return jsonify(drones)
 
 @app.route('/getDrones/', methods=['POST'])
 def getSpeceficDrones():
@@ -95,7 +95,7 @@ def getSpeceficDrones():
         except:
             continue
     
-    return drones
+    return jsonify(drones)
 
 
 @app.route('/drone/register/drone', methods=['POST'])

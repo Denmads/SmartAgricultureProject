@@ -24,8 +24,11 @@
 .drone-info-job-fields {
     width: 100%;
     display: grid;
+    row-gap: 1rem;
+    grid-template-rows: 1fr auto;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-areas: "id id x y";
+    grid-template-areas: "id id x y"
+                         "img img img img";
     align-content: stretch;
 }
 
@@ -46,12 +49,20 @@
     grid-area: y;
 }
 
+#img {
+    grid-area: img;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
 @media only screen and (max-width: 768px) {
     .drone-info-job-fields {
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: 1fr 1fr auto;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-areas: 
         "id id id"
-        "x y .";
+        "x y ."
+        "img img img";
     }
 }
