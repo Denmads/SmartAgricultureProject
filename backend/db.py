@@ -216,8 +216,6 @@ def delete_job(id):
 
 
 def save_image(id, image):
-    print("camera id", id)
-    print(len(image))
     try:
         connection = mysql.connector.connect(host=hostname,
                                             database='hub',
@@ -236,8 +234,6 @@ def save_image(id, image):
             connection.close()
 
 def save_label(id, label):
-    print("Label - id", id)
-    print(label)
     try:
         connection = mysql.connector.connect(host=hostname,
                                             database='hub',

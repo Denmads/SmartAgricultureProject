@@ -33,8 +33,6 @@ def createJob():
     dronesList = data['drones']
     fieldId = int(data['field'])
 
-    print(fieldId)
-
     hub.newJob(dronesList=dronesList, fieldId=fieldId)
     #for drone in dronesList:
         #db.save_field_to_drone(drone.id, fieldId)
@@ -112,7 +110,6 @@ def updateStatus():
 
     data = json.loads(request.data)
 
-    print(data)
 
     drone_id = str(data['drone_id'])
     status = str(data['status'])
@@ -126,7 +123,6 @@ def camera():
     db.save_image(id=droneId, image=image)
     hub.save_image(id=droneId, image=image)
     predict = predictImage(image)
-    print("predict is:", predict)
     hub.giveLabel(droneId, predict)
     db.save_label(droneId, predict)
     if predict[0] == 'r': return {'harvest': False}
