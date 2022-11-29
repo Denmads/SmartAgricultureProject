@@ -2,7 +2,7 @@ import requests
 import base64
 from PIL import Image
 
-url = 'http://flask-backend:5000/predictImage'
+url = 'http://localhost:5000/predictImage'
 dirs = {"FreshBanana":"b", "RottenBanana":"rb", "FreshApples":"a", "RottenApples":"ra", "FreshOranges":"o", "RottenOranges": "ro"}
 HOST = 'http://localhost:5000'
 

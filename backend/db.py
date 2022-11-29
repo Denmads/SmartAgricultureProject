@@ -4,6 +4,7 @@ from Drone import Drone
 from Field import Field
 from job import Job
 from mysql.connector import Error
+
 hostname = 'localhost'
 db_module = sys.modules[__name__]
 
@@ -214,7 +215,9 @@ def delete_job(id):
             connection.close()
 
 
-def save_image(self, id, image):
+def save_image(id, image):
+    print("camera id", id)
+    print(len(image))
     try:
         connection = mysql.connector.connect(host=hostname,
                                             database='hub',
@@ -222,7 +225,45 @@ def save_image(self, id, image):
                                             password='password')
         if connection.is_connected():
             cursor = connection.cursor()
-            cursor.execute(f"UPDATE drone SET Camera = '{image}' WHERE Droneid = '{droneId}';")
+            cursor.execute(f"UPDATE drone SET Camera = '{image}' WHERE Droneid = '{id}';")
+            connection.commit()
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+def save_label(id, label):
+    print("Label - id", id)
+    print(label)
+    try:
+        connection = mysql.connector.connect(host=hostname,
+                                            database='hub',
+                                            user='root',
+                                            password='password')
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute(f"UPDATE drone SET label = '{label}' WHERE Droneid = '{id}';")
+            connection.commit()
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+def save_field_to_drone(id, field):
+    try:
+        connection = mysql.connector.connect(host=hostname,
+                                            database='hub',
+                                            user='root',
+                                            password='password')
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute(f"UPDATE drone SET Fieldid = '{field}' WHERE Droneid = '{id}';")
             connection.commit()
 
     except Error as e:

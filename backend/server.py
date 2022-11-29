@@ -30,14 +30,14 @@ def createJob():
 
     data = json.loads(request.data)
 
-    print(data)
-
     dronesList = data['drones']
     fieldId = int(data['field'])
 
     print(fieldId)
 
     hub.newJob(dronesList=dronesList, fieldId=fieldId)
+    #for drone in dronesList:
+        #db.save_field_to_drone(drone.id, fieldId)
     return "200"
 
 @app.route('/field', methods=['POST'])
@@ -126,7 +126,9 @@ def camera():
     db.save_image(id=droneId, image=image)
     hub.save_image(id=droneId, image=image)
     predict = predictImage(image)
+    print("predict is:", predict)
     hub.giveLabel(droneId, predict)
+    db.save_label(droneId, predict)
     if predict[0] == 'r': return {'harvest': False}
     else: return {'harvest': True}
 
